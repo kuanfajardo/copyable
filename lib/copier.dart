@@ -1,7 +1,5 @@
 library copier;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:copier/src/copier.dart';
+
+export 'package:copier/src/builtins/builtins.dart';
