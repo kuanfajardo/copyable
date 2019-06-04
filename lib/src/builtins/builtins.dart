@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:copier/src/copier.dart';
 
+// Default instances of copiers for convenience.
 AppBarCopier appBarCopier = AppBarCopier();
-
 BottomNavigationBarCopier bottomNavigationBarCopier =
     BottomNavigationBarCopier();
-
 FloatingActionButtonCopier floatingActionButtonCopier =
     FloatingActionButtonCopier();
 
+/// Copier for `AppBar`
 class AppBarCopier implements Copier<AppBar> {
   @override
   AppBar master;
@@ -185,6 +185,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 }
 
+/// Copier for `BottomNavigationBar`
 class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
   @override
   BottomNavigationBar master;
@@ -340,6 +341,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
   }
 }
 
+/// Copier for `FloatingActionButton`
 class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   @override
   FloatingActionButton master;
