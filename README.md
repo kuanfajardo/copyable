@@ -1,7 +1,7 @@
 # copier
 
-A new Flutter package for copying objects.
+A package for giving copy capabilities to classes whose implementation
+is not editable (i.e. Flutter widgets). 
 
-## Getting Started
+## Usage
 
-TODO: Fill this out!
