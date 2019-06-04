@@ -1,0 +1,19 @@
+name: copyable_generator_example
+
+environment:
+  sdk: '>=2.1.0 < 3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  copier: ^0.0.1
+
+dev_dependencies:
+  build_runner: ^1.0.0
+  build_verify: ^1.1.0
+  copyable_generator:
+    path: ../generator
+
+dependency_overrides:
+  copier:
+    path: ../

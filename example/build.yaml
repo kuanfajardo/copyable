@@ -1,0 +1,6 @@
+targets:
+  $default:
+    builders:
+      copyable_generator|copyable:
+        generate_for:
+          - lib/example.dart
