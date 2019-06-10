@@ -18,12 +18,6 @@ class CopierGenerator extends GeneratorForAnnotation<BuildCopier> {
     if (element is ClassElement) {
       return this.generateForAnnotatedClassElement(element, annotation, buildStep);
     }
-
-    if (element is VariableElement) {
-      return this.generateForAnnotatedVariableElement(element, annotation, buildStep);
-    }
-
-    return null;
   }
 
   String generateForAnnotatedClassElement(
@@ -166,11 +160,6 @@ class CopierGenerator extends GeneratorForAnnotation<BuildCopier> {
     final DartEmitter emitter = DartEmitter();
     final String generatedCode = '${copyable.accept(emitter)}';
     return DartFormatter().format(generatedCode);
-  }
-
-  String generateForAnnotatedVariableElement(
-      VariableElement element, ConstantReader annotation, BuildStep buildStep) {
-    return '';
   }
 }
 
@@ -327,6 +316,71 @@ class CopyableGenerator extends Generator {
     final DartEmitter emitter = DartEmitter();
     final String generatedCode = '${copyable.accept(emitter)}';
     return DartFormatter().format(generatedCode);
+  }
+}
+
+class CopyFunctionsGenerator extends GeneratorForAnnotation<CopyFunctions> {
+  @override
+  String generateForAnnotatedElement(Element element,
+      ConstantReader annotation, BuildStep buildStep) {
+    if (element is ClassElement) {
+      return this.generateForAnnotatedClassElement(element, annotation,
+          buildStep);
+    }
+
+    return null;
+  }
+
+  String generateForAnnotatedClassElement(ClassElement element, 
+      ConstantReader annotation, BuildStep buildStep) {
+    String className = element.name;
+    SimpleFieldElementVisitor visitor = SimpleFieldElementVisitor();
+    element.visitChildren(visitor);
+
+    String fieldParams = visitor.fields.entries
+        .map((MapEntry<String, DartType> entry) => '${entry.value} ${entry
+        .key}')
+        .toList()
+        .join(', ');
+
+    String paramCode = visitor.fields.entries
+        .map((MapEntry<String, DartType> entry) => '${entry.key}: ${entry.key}')
+        .toList()
+        .join(', ');
+
+    String newParamCode = visitor.fields.entries
+        .map((MapEntry<String, DartType> entry) =>
+    '${entry.key} : ${entry.key} ??'
+        ' master?.${entry.key}')
+        .toList()
+        .join(', ');
+
+    final String copy = '''
+      @override
+      $className copy() => _copy(this);
+    ''';
+
+    final String copyFrom = '''
+      @override
+      $className copyFrom($className master) => _copy(master);
+    ''';
+
+    final String copyWith = '''
+      @override
+      $className copyWith({$fieldParams}) => _copy(null, $paramCode);
+    ''';
+
+    final String _copy = '''
+      $className _copy($className master, {$fieldParams}) {
+        return $className($newParamCode);
+      }
+    ''';
+
+    String methodsString = [copy, copyFrom, copyWith, _copy].join('\n');
+    return '''/*
+    Copy/Paste these methods into your class! Make sure to remember to 
+    $methodsString
+    */''';
   }
 }
 

@@ -7,3 +7,6 @@ targets:
       copyable_generator|copyable:
         generate_for:
           - lib/example.dart
+      copyable_generator|functions:
+        generate_for:
+          - lib/example.dart

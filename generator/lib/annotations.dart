@@ -14,3 +14,8 @@ class CopyMeta {
       .fields});
 }
 
+class CopyFunctions {
+  const CopyFunctions();
+}
+
+const copy_functions = CopyFunctions();

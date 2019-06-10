@@ -8,3 +8,6 @@ Builder copierBuilder(BuilderOptions options) =>
 
 Builder copyableBuilder(BuilderOptions options) =>
     SharedPartBuilder([CopyableGenerator()], 'copyable');
+
+Builder copyFunctionsBuilder(BuilderOptions options) =>
+    SharedPartBuilder([CopyFunctionsGenerator()], 'functions');
