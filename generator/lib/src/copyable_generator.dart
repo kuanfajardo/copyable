@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/visitor.dart';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:dart_style/dart_style.dart';
 
 import 'package:build/build.dart';
@@ -10,14 +11,23 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:copyable_generator/annotations.dart';
 
-class CopyableGenerator extends GeneratorForAnnotation<Copyable> {
+class CopierGenerator extends GeneratorForAnnotation<BuildCopier> {
+  @override
   String generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
-    if (!(element is ClassElement)) {
-      // TODO !is, enable experiment
-      return null;
+    if (element is ClassElement) {
+      return this.generateForAnnotatedClassElement(element, annotation, buildStep);
     }
 
+    if (element is VariableElement) {
+      return this.generateForAnnotatedVariableElement(element, annotation, buildStep);
+    }
+
+    return null;
+  }
+
+  String generateForAnnotatedClassElement(
+      ClassElement element, ConstantReader annotation, BuildStep buildStep) {
     SimpleFieldElementVisitor visitor = SimpleFieldElementVisitor();
     element.visitChildren(visitor);
 
@@ -26,9 +36,9 @@ class CopyableGenerator extends GeneratorForAnnotation<Copyable> {
 
     List<Parameter> params = visitor.fields.entries
         .map((MapEntry<String, DartType> entry) => Parameter((b) => b
-          ..name = entry.key
-          ..type = refer(entry.value.name)
-          ..named = true))
+      ..name = entry.key
+      ..type = refer(entry.value.name)
+      ..named = true))
         .toList();
 
     String paramCode = visitor.fields.entries
@@ -38,8 +48,8 @@ class CopyableGenerator extends GeneratorForAnnotation<Copyable> {
 
     String detailedParamCode = visitor.fields.entries
         .map((MapEntry<String, DartType> entry) =>
-            '${entry.key} : ${entry.key} ??'
-            ' master?.${entry.key} ?? defaultMaster.${entry.key}')
+    '${entry.key} : ${entry.key} ??'
+        ' master?.${entry.key} ?? defaultMaster.${entry.key}')
         .toList()
         .join(', ');
 
@@ -122,7 +132,7 @@ class CopyableGenerator extends GeneratorForAnnotation<Copyable> {
       ..body = Code('return this.master;'));
 
     final Constructor constructor = Constructor((b) =>
-        b..optionalParameters.add(Parameter((b) => b..name = 'this.master')));
+    b..optionalParameters.add(Parameter((b) => b..name = 'this.master')));
 
     final Field master = Field((b) => b
       ..name = 'master'
@@ -151,6 +161,167 @@ class CopyableGenerator extends GeneratorForAnnotation<Copyable> {
         copyWithAndResolve,
         resolve,
       ]));
+
+    // Generate code and return
+    final DartEmitter emitter = DartEmitter();
+    final String generatedCode = '${copyable.accept(emitter)}';
+    return DartFormatter().format(generatedCode);
+  }
+
+  String generateForAnnotatedVariableElement(
+      VariableElement element, ConstantReader annotation, BuildStep buildStep) {
+    return '';
+  }
+}
+
+class CopyableGenerator extends Generator {
+  @override
+  String generate(LibraryReader library, BuildStep buildStep) {
+    List<VariableElement> metas = [];
+    library.allElements.forEach((Element e) {
+      if (e is VariableElement) {
+        if (e.type.name == 'CopyMeta') {
+          metas.add(e);
+          return;
+        }
+      }
+    });
+
+    return metas.map((VariableElement meta) => this.generateFromVariableElement
+      (meta)).toList().join('\n\n');
+  }
+
+  String generateFromVariableElement(VariableElement e) {
+    DartObject meta = e.computeConstantValue();
+
+    String baseName = meta.getField('baseClass').toStringValue();
+    String prefix = meta.getField('prefix').toStringValue();
+    Map<String, String> fields = meta
+        .getField('fields')
+        .toMapValue()
+        .map(
+            (DartObject key, DartObject value) =>
+                MapEntry(
+                    key.toStringValue(),
+                    value.toStringValue()
+                )
+        );
+
+    String className = prefix + baseName;
+
+    final List<Parameter> fieldParams = fields.entries.map((MapEntry<String,
+        String> entry) {
+      return Parameter((b) => b
+        ..name = entry.key
+        ..type = refer(entry.value)
+        ..named = true
+      );
+    }).toList();
+
+    String paramCode = fieldParams.map((Parameter p) => '${p.name} : ${p
+        .name}').toList().join(', ');
+
+    String detailedParamCode = fieldParams
+        .map((Parameter p) =>
+    '${p.name} : ${p.name} ??'
+        ' master?.${p.name}')
+        .toList()
+        .join(', ');
+
+    Code _copyCode = Code('''
+      $baseName new$baseName = $baseName(
+        $detailedParamCode
+      );
+      
+      return $className.from(new$baseName);
+    ''');
+
+    final Method copy = Method((b) => b
+      ..name = 'copy'
+      ..returns = refer(className)
+      ..body = Code('''
+        return this._copy(this.master);
+      ''')
+    );
+
+    final Method copyFrom = Method((b) => b
+      ..name = 'copyFrom'
+      ..requiredParameters.add(Parameter((b) => b
+        ..name = 'master'
+        ..type = refer(baseName)
+      ))
+      ..returns = refer(className)
+      ..body = Code('''
+        return this._copy(master);
+      ''')
+    );
+
+    final Method copyWith = Method((b) => b
+      ..name = 'copyWith'
+      ..optionalParameters.addAll(fieldParams)
+      ..returns = refer(className)
+      ..body = Code('''
+        return this._copy(null, $paramCode);
+      ''')
+//      ..annotations.add(Expression)
+    );
+
+    final Method _copy = Method((b) => b
+      ..name = '_copy'
+      ..requiredParameters.add(
+        Parameter((b) => b
+          ..name = 'master'
+          ..type = refer(baseName)
+        ),
+      )
+      ..optionalParameters.addAll(fieldParams)
+      ..returns = refer(className)
+      ..body = _copyCode
+    );
+
+    final Field masterField = Field((b) => b
+      ..name = 'master'
+      ..type = refer(baseName)
+      ..modifier = FieldModifier.final$
+    );
+
+    final Constructor propertyConstructor = Constructor((b) => b
+      ..optionalParameters.addAll(fieldParams)
+      ..initializers.add(Code('''
+        this.master = $baseName($paramCode)
+      '''))
+    );
+
+    final Constructor fromExistingConstructor = Constructor((b) => b
+      ..name = 'from'
+      ..requiredParameters.add(
+        Parameter((b) => b
+          ..name = 'master'
+          ..type = refer(baseName)
+        )
+      )
+      // Need to use initializer instead of just required param because
+      // source_gen creates `Constructor(Class this.master)` instead of just
+      // `Constructor(this.master)`
+      ..initializers.add(Code('this.master = master'))
+    );
+
+    final Class copyable = Class((b) => b
+      ..name = className
+      ..constructors.addAll([
+        propertyConstructor,
+        fromExistingConstructor,
+      ])
+      ..fields.add(masterField)
+      ..methods.addAll([
+        copy,
+        copyFrom,
+        copyWith,
+        _copy
+      ])
+      ..extend = refer(baseName)
+      ..implements.add(refer('Copyable<$baseName>'))
+    );
 
     // Generate code and return
     final DartEmitter emitter = DartEmitter();

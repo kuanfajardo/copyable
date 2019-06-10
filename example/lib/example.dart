@@ -3,7 +3,7 @@ import 'package:copyable_generator/annotations.dart';
 
 part 'example.g.dart';
 
-@Copyable()
+@build_copier
 class Point {
   final int x;
   final int y;
@@ -15,3 +15,12 @@ class Point {
     this.parent
   });
 }
+
+const CopyMeta pointCopyMeta = CopyMeta(
+  baseClass: 'Point',
+  fields: {
+    'x': 'int',
+    'y': 'int',
+    'parent': 'Point',
+  }
+);

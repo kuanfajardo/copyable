@@ -44,3 +44,9 @@ abstract class Copier<T> {
   /// Literally the only code in this function should be `return this.master;`
   @required T resolve();
 }
+
+abstract class Copyable<T> {
+  @required T copy();
+  @required T copyFrom(T master);
+  @required T copyWith();
+}

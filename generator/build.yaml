@@ -1,8 +1,16 @@
 builders:
+  copier:
+    import: "package:copyable_generator/builder.dart"
+    builder_factories: ["copierBuilder"]
+    build_extensions: {".dart": ["copier.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+
   copyable:
     import: "package:copyable_generator/builder.dart"
     builder_factories: ["copyableBuilder"]
-    build_extensions: {".dart": ["copier.g.part"]}
+    build_extensions: {".dart": ["copyable.g.part"]}
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]

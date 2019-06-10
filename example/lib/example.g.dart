@@ -55,3 +55,35 @@ class PointCopier implements Copier<Point> {
     return this.master;
   }
 }
+
+// **************************************************************************
+// NewClassGenerator
+// **************************************************************************
+
+class CopyablePoint extends Point implements Copyable<Point> {
+  CopyablePoint({int x, int y, Point parent})
+      : this.master = Point(x: x, y: y, parent: parent);
+
+  CopyablePoint.from(Point master) : this.master = master;
+
+  final Point master;
+
+  CopyablePoint copy() {
+    return this._copy(this.master);
+  }
+
+  CopyablePoint copyFrom(Point master) {
+    return this._copy(master);
+  }
+
+  CopyablePoint copyWith({int x, int y, Point parent}) {
+    return this._copy(null, x: x, y: y, parent: parent);
+  }
+
+  CopyablePoint _copy(Point master, {int x, int y, Point parent}) {
+    Point newPoint = Point(
+        x: x ?? master?.x, y: y ?? master?.y, parent: parent ?? master?.parent);
+
+    return CopyablePoint.from(newPoint);
+  }
+}
