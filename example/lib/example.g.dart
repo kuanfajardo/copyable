@@ -78,10 +78,6 @@ class CopyablePoint extends Point implements Copyable<Point> {
     return this._copy(this.master);
   }
 
-  CopyablePoint copyFrom(Point master) {
-    return this._copy(master);
-  }
-
   CopyablePoint copyWith({int x, int y, Point parent}) {
     return this._copy(null, x: x, y: y, parent: parent);
   }
@@ -102,10 +98,7 @@ class CopyablePoint extends Point implements Copyable<Point> {
     Copy/Paste these methods into your class! Make sure to remember to 
           @override
       Rectangle copy() => _copy(this);
-    
-      @override
-      Rectangle copyFrom(Rectangle master) => _copy(master);
-    
+
       @override
       Rectangle copyWith({int length, int width, Rectangle parent}) => _copy(null, length: length, width: width, parent: parent);
     

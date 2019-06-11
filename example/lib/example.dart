@@ -19,9 +19,6 @@ class Point implements Copyable<Point> {
   Point copy() => _copy(this);
 
   @override
-  Point copyFrom(Point master) => _copy(master);
-
-  @override
   Point copyWith({
     int x,
     int y, 

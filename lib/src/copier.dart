@@ -47,6 +47,5 @@ abstract class Copier<T> {
 
 abstract class Copyable<T> {
   @required T copy();
-  @required T copyFrom(T master);
   @required T copyWith();
 }
