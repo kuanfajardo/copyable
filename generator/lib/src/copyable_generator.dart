@@ -150,6 +150,7 @@ class ForeignCopyableGenerator extends Generator {
       ..body = Code('''
         return this._copy(this.master);
       ''')
+      ..annotations.add(refer('override'))
     );
 
     final Method copyWith = Method((b) => b
@@ -162,6 +163,7 @@ class ForeignCopyableGenerator extends Generator {
       ..body = Code('''
         return this._copy(master);
       ''')
+      ..annotations.add(refer('override'))
     );
 
     final Method copyWithProperties = Method((b) => b
@@ -402,7 +404,9 @@ Class generateCopier({
               master,
               resolve: false,
             ) as $newClassName;
-        '''));
+        ''')
+    ..annotations.add(refer('override'))
+  );
 
   final Method copyAndResolve = Method((b) => b
     ..name = 'copyAndResolve'
@@ -415,7 +419,9 @@ Class generateCopier({
             master,
             resolve: true,
           ) as $baseClassName;
-        '''));
+        ''')
+    ..annotations.add(refer('override'))
+  );
 
   final Method copyWith = Method((b) => b
     ..name = 'copyWith'
@@ -427,7 +433,9 @@ Class generateCopier({
               resolve: false,
               $paramCode
             ) as $newClassName;
-        '''));
+        ''')
+    ..annotations.add(refer('override'))
+  );
 
   final Method copyWithAndResolve = Method((b) => b
     ..name = 'copyWithAndResolve'
@@ -439,7 +447,9 @@ Class generateCopier({
               resolve: true,
               $paramCode
             ) as $baseClassName;
-        '''));
+        ''')
+    ..annotations.add(refer('override'))
+  );
 
   final Method resolve = Method((b) => b
     ..name = 'resolve'
