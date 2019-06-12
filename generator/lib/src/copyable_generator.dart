@@ -12,7 +12,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:copyable_generator/annotations.dart';
 
 // Local, copyable
-class LocalCopyableGenerator extends GeneratorForAnnotation<GenerateCopier> {
+class LocalCopyableGenerator extends GeneratorForAnnotation<GenerateCopyable> {
   @override
   String generateForAnnotatedElement(Element element,
       ConstantReader annotation, BuildStep buildStep) {

@@ -3,13 +3,13 @@ targets:
     builders:
       copyable_generator|copyable:
         generate_for:
-          - lib/example.dart
+          - lib/copyable_example.dart
       copyable_generator|foreignCopyable:
         generate_for:
-          - lib/example.dart
+          - lib/copyable_example.dart
       copyable_generator|copier:
         generate_for:
-          - lib/example.dart
+          - lib/copier_example.dart
       copyable_generator|foreignCopier:
         generate_for:
-          - lib/example.dart
+          - lib/copier_example.dart
