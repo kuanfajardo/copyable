@@ -24,10 +24,6 @@ abstract class Copier<T> {
   /// Typically just a bare-bones object (i.e. `T()`).
   @required T get defaultMaster;
 
-  /// Main copy method. See [builtins](builtins.dart) for examples
-  /// on how to implement.
-  @required dynamic internalCopy(T master, {bool resolve = false});
-
   // Convenience Methods
 
   /// Copies the given object `master` and returns a new instance of `Copier<T>`

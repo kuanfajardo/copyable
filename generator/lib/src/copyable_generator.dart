@@ -365,7 +365,7 @@ Class generateCopier({
       .toList()
       .join(', ');
 
-  String internalCopyCode = '''
+  String _copyCode = '''
       master = master ?? this.master;
       $baseClassName new$baseClassName = $baseClassName(
         $detailedParamCode
@@ -374,8 +374,8 @@ Class generateCopier({
       return resolve ? new$baseClassName : $newClassName(new$baseClassName);
     ''';
 
-  final Method internalCopy = Method((b) => b
-    ..name = 'internalCopy'
+  final Method _copy = Method((b) => b
+    ..name = '_copy'
     ..returns = refer('dynamic')
     ..requiredParameters.add(Parameter((b) => b
       ..name = 'master'
@@ -386,7 +386,7 @@ Class generateCopier({
       ..named = true
       ..defaultTo = Code('false')))
     ..optionalParameters.addAll(params)
-    ..body = Code(internalCopyCode));
+    ..body = Code(_copyCode));
 
   final Method copy = Method((b) => b
     ..name = 'copy'
@@ -395,7 +395,7 @@ Class generateCopier({
       ..type = refer(baseClassName)))
     ..returns = refer(newClassName)
     ..body = Code('''
-            return this.internalCopy(
+            return this._copy(
               master,
               resolve: false,
             ) as $newClassName;
@@ -408,7 +408,7 @@ Class generateCopier({
       ..type = refer(baseClassName)))
     ..returns = refer(baseClassName)
     ..body = Code('''
-          return this.internalCopy(
+          return this._copy(
             master,
             resolve: true,
           ) as $baseClassName;
@@ -419,7 +419,7 @@ Class generateCopier({
     ..optionalParameters.addAll(params)
     ..returns = refer(newClassName)
     ..body = Code('''
-            return this.internalCopy(
+            return this._copy(
               this.master,
               resolve: false,
               $paramCode
@@ -431,7 +431,7 @@ Class generateCopier({
     ..optionalParameters.addAll(params)
     ..returns = refer(baseClassName)
     ..body = Code('''
-            return this.internalCopy(
+            return this._copy(
               this.master,
               resolve: true,
               $paramCode
@@ -472,7 +472,7 @@ Class generateCopier({
     ..constructors.add(constructor)
     ..methods.addAll([
       defaultMaster,
-      internalCopy,
+      _copy,
       copy,
       copyAndResolve,
       copyWith,
