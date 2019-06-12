@@ -7,7 +7,11 @@ Builder copierBuilder(BuilderOptions options) =>
     SharedPartBuilder([CopierGenerator()], 'copier');
 
 Builder copyableBuilder(BuilderOptions options) =>
-    SharedPartBuilder([CopyableGenerator()], 'copyable');
+    LibraryBuilder(CopyableGenerator(), generatedExtension: '.copyable.dart');
 
 Builder copyFunctionsBuilder(BuilderOptions options) =>
     SharedPartBuilder([CopyFunctionsGenerator()], 'functions');
+
+Builder foreignCopierBuilder(BuilderOptions options) =>
+    LibraryBuilder(ForeignCopierGenerator(), generatedExtension: '.copier'
+        '.dart');

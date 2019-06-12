@@ -1,5 +1,14 @@
 import 'package:meta/meta.dart';
 
+/// An interface for copying objects.
+abstract class Copyable<T> {
+  /// Copy the current object.
+  @required T copy();
+
+  /// Copy the current object with the given properties.
+  @required T copyWith(/* Add named properties here; typically these are object fields.*/);
+}
+
 /// An interface for giving copy capabilities to classes whose implementation
 /// is not editable (i.e. Flutter widgets). See [builtins](builtins.dart) for
 /// examples on how to implement. TODO: Add documentation on generation.
@@ -43,9 +52,4 @@ abstract class Copier<T> {
   /// Returns the result of the most recent copy (i.e. this.master).
   /// Literally the only code in this function should be `return this.master;`
   @required T resolve();
-}
-
-abstract class Copyable<T> {
-  @required T copy();
-  @required T copyWith();
 }

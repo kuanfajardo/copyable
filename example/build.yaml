@@ -10,3 +10,6 @@ targets:
       copyable_generator|functions:
         generate_for:
           - lib/example.dart
+      copyable_generator|foreignCopier:
+        generate_for:
+          - lib/example.dart

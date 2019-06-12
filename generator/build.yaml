@@ -10,10 +10,9 @@ builders:
   copyable:
     import: "package:copyable_generator/builder.dart"
     builder_factories: ["copyableBuilder"]
-    build_extensions: {".dart": ["copyable.g.part"]}
+    build_extensions: {".dart": [".copyable.dart"]}
     auto_apply: dependents
-    build_to: cache
-    applies_builders: ["source_gen|combining_builder"]
+    build_to: source
 
   functions:
     import: "package:copyable_generator/builder.dart"
@@ -22,3 +21,10 @@ builders:
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
+
+  foreignCopier:
+    import: "package:copyable_generator/builder.dart"
+    builder_factories: ["foreignCopierBuilder"]
+    build_extensions: {".dart": [".copier.dart"]}
+    auto_apply: dependents
+    build_to: source

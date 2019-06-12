@@ -76,12 +76,23 @@ class Circle {
 
 /// For classes that are defined elsewhere (not editable, i.e. Flutter
 /// widgets), create a CopyMeta object describing the object. The generator
-/// will then create a Copier for that object.
-const CopyMeta pointCopyMeta = CopyMeta(
-  baseClass: 'ExternalPoint',
+/// will then create a Copyable version of that object.
+const CopierMeta appBarCopierMeta = CopierMeta(
+  import: 'package:flutter/material.dart',
+  baseClassName: 'AppBar',
   fields: {
-    'x': 'int',
-    'y': 'int',
-    'parent': 'Point',
+    'title': 'Widget',
+    'elevation': 'double',
+    'primary': 'bool',
   }
+);
+
+const CopyableMeta appBarCopyableMeta = CopyableMeta(
+  import: 'package:flutter/material.dart',
+  baseClassName: 'AppBar',
+  fields: {
+    'title': 'Widget',
+    'elevation': 'double',
+    'primary': 'bool',
+  },
 );
