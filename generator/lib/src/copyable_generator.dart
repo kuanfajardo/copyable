@@ -11,171 +11,74 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:copyable_generator/annotations.dart';
 
-// Local, copier
-class CopierGenerator extends GeneratorForAnnotation<BuildCopier> {
+// Local, copyable
+class LocalCopyableGenerator extends GeneratorForAnnotation<GenerateCopier> {
   @override
-  String generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep) {
+  String generateForAnnotatedElement(Element element,
+      ConstantReader annotation, BuildStep buildStep) {
     if (element is ClassElement) {
-      return this.generateForAnnotatedClassElement(element, annotation, buildStep);
+      return this.generateForAnnotatedClassElement(element, annotation,
+          buildStep);
     }
 
     return null;
   }
 
-  String generateForAnnotatedClassElement(
-      ClassElement element, ConstantReader annotation, BuildStep buildStep) {
+  String generateForAnnotatedClassElement(ClassElement element,
+      ConstantReader annotation, BuildStep buildStep) {
+    String className = element.name;
     SimpleFieldElementVisitor visitor = SimpleFieldElementVisitor();
     element.visitChildren(visitor);
 
-    String baseClassName = element.name;
-    String newClassName = baseClassName + 'Copier';
+    String fieldParams = visitor.fields.entries
+        .map((MapEntry<String, DartType> entry) => '${entry.value} ${entry
+        .key}')
+        .toList()
+        .join(',\n');
 
-    Map<String, String> fields = visitor.fields
-        .map((String fieldName, DartType fieldType) => MapEntry(fieldName,
-        fieldType.name));
+    String paramCode = visitor.fields.entries
+        .map((MapEntry<String, DartType> entry) => '${entry.key}: ${entry.key}')
+        .toList()
+        .join(',\n');
 
-    Class copier = generateCopier(
-      baseClassName: baseClassName,
-      newClassName: newClassName,
-      fields: fields
-    );
+    String newParamCode = visitor.fields.entries
+        .map((MapEntry<String, DartType> entry) =>
+    '${entry.key} : ${entry.key} ??'
+        ' master?.${entry.key}')
+        .toList()
+        .join(', ');
 
-    // Generate code and return
-    final DartEmitter emitter = DartEmitter();
-    final String generatedCode = '${copier.accept(emitter)}';
-    return DartFormatter().format(generatedCode);
-//
-//    String paramCode = visitor.fields.entries
-//        .map((MapEntry<String, DartType> entry) => '${entry.key}: ${entry.key}')
-//        .toList()
-//        .join(', ');
-//
-//    String detailedParamCode = visitor.fields.entries
-//        .map((MapEntry<String, DartType> entry) =>
-//    '${entry.key} : ${entry.key} ??'
-//        ' master?.${entry.key} ?? defaultMaster.${entry.key}')
-//        .toList()
-//        .join(', ');
-//
-//    String internalCopyCode = '''
-//      master = master ?? this.master;
-//      $className new$className = $className(
-//        $detailedParamCode
-//      );
-//
-//      return resolve ? new$className : $copierName(new$className);
-//    ''';
-//
-//    final Method internalCopy = Method((b) => b
-//      ..name = 'internalCopy'
-//      ..returns = refer('dynamic')
-//      ..requiredParameters.add(Parameter((b) => b
-//        ..name = 'master'
-//        ..type = refer(className)))
-//      ..optionalParameters.add(Parameter((b) => b
-//        ..name = 'resolve'
-//        ..type = refer('bool')
-//        ..named = true
-//        ..defaultTo = Code('false')))
-//      ..optionalParameters.addAll(params)
-//      ..body = Code(internalCopyCode));
-//
-//    final Method copy = Method((b) => b
-//      ..name = 'copy'
-//      ..requiredParameters.add(Parameter((b) => b
-//        ..name = 'master'
-//        ..type = refer(className)))
-//      ..returns = refer(copierName)
-//      ..body = Code('''
-//            return this.internalCopy(
-//              master,
-//              resolve: false,
-//            ) as $copierName;
-//        '''));
-//
-//    final Method copyAndResolve = Method((b) => b
-//      ..name = 'copyAndResolve'
-//      ..requiredParameters.add(Parameter((b) => b
-//        ..name = 'master'
-//        ..type = refer(className)))
-//      ..returns = refer(className)
-//      ..body = Code('''
-//          return this.internalCopy(
-//            master,
-//            resolve: true,
-//          ) as $className;
-//        '''));
-//
-//    final Method copyWith = Method((b) => b
-//      ..name = 'copyWith'
-//      ..optionalParameters.addAll(params)
-//      ..returns = refer(copierName)
-//      ..body = Code('''
-//            return this.internalCopy(
-//              this.master,
-//              resolve: false,
-//              $paramCode
-//            ) as $copierName;
-//        '''));
-//
-//    final Method copyWithAndResolve = Method((b) => b
-//      ..name = 'copyWithAndResolve'
-//      ..optionalParameters.addAll(params)
-//      ..returns = refer(className)
-//      ..body = Code('''
-//            return this.internalCopy(
-//              this.master,
-//              resolve: true,
-//              $paramCode
-//            ) as $className;
-//        '''));
-//
-//    final Method resolve = Method((b) => b
-//      ..name = 'resolve'
-//      ..returns = refer(className)
-//      ..body = Code('return this.master;'));
-//
-//    final Constructor constructor = Constructor((b) =>
-//    b..optionalParameters.add(Parameter((b) => b..name = 'this.master')));
-//
-//    final Field master = Field((b) => b
-//      ..name = 'master'
-//      ..type = refer(className));
-//
-//    final Method defaultMaster = Method((b) => b
-//      ..name = 'defaultMaster'
-//      ..returns = refer(className)
-//      ..type = MethodType.getter
-//      ..body = Code('''
-//        // TODO: Implement default
-//        return null;
-//      '''));
-//
-//    final Class copyable = Class((b) => b
-//      ..name = copierName
-//      ..implements.add(refer('Copier<$className>'))
-//      ..fields.add(master)
-//      ..constructors.add(constructor)
-//      ..methods.addAll([
-//        defaultMaster,
-//        internalCopy,
-//        copy,
-//        copyAndResolve,
-//        copyWith,
-//        copyWithAndResolve,
-//        resolve,
-//      ]));
-//
-//    // Generate code and return
-//    final DartEmitter emitter = DartEmitter();
-//    final String generatedCode = '${copyable.accept(emitter)}';
-//    return DartFormatter().format(generatedCode);
+    final String copy = '''
+      @override
+      $className copy() => _copy(this);
+    ''';
+
+    final String copyFrom = '''
+      @override
+      $className copyFrom($className master) => _copy(master);
+    ''';
+
+    final String copyWith = '''
+      @override
+      $className copyWith({\n$fieldParams}) => _copy(null,\n$paramCode);
+    ''';
+
+    final String _copy = '''
+      $className _copy($className master, {\n$fieldParams}) {
+        return $className(\n$newParamCode);
+      }
+    ''';
+
+    String methodsString = [copy, copyFrom, copyWith, _copy].join('\n');
+    return '''/*
+    Copy/Paste these methods into your class! Make sure to remember to 
+    $methodsString
+    */''';
   }
 }
 
 // Foreign, copyable
-class CopyableGenerator extends Generator {
+class ForeignCopyableGenerator extends Generator {
   @override
   String generate(LibraryReader library, BuildStep buildStep) {
     List<VariableElement> metas = [];
@@ -342,69 +245,40 @@ class CopyableGenerator extends Generator {
   }
 }
 
-// Local, copyable
-class CopyFunctionsGenerator extends GeneratorForAnnotation<CopyFunctions> {
+// Local, copier
+class LocalCopierGenerator extends GeneratorForAnnotation<GenerateCopier> {
   @override
-  String generateForAnnotatedElement(Element element,
-      ConstantReader annotation, BuildStep buildStep) {
+  String generateForAnnotatedElement(
+      Element element, ConstantReader annotation, BuildStep buildStep) {
     if (element is ClassElement) {
-      return this.generateForAnnotatedClassElement(element, annotation,
-          buildStep);
+      return this.generateForAnnotatedClassElement(element, annotation, buildStep);
     }
 
     return null;
   }
 
-  String generateForAnnotatedClassElement(ClassElement element, 
-      ConstantReader annotation, BuildStep buildStep) {
-    String className = element.name;
+  String generateForAnnotatedClassElement(
+      ClassElement element, ConstantReader annotation, BuildStep buildStep) {
     SimpleFieldElementVisitor visitor = SimpleFieldElementVisitor();
     element.visitChildren(visitor);
 
-    String fieldParams = visitor.fields.entries
-        .map((MapEntry<String, DartType> entry) => '${entry.value} ${entry
-        .key}')
-        .toList()
-        .join(',\n');
+    String baseClassName = element.name;
+    String newClassName = baseClassName + 'Copier';
 
-    String paramCode = visitor.fields.entries
-        .map((MapEntry<String, DartType> entry) => '${entry.key}: ${entry.key}')
-        .toList()
-        .join(',\n');
+    Map<String, String> fields = visitor.fields
+        .map((String fieldName, DartType fieldType) => MapEntry(fieldName,
+        fieldType.name));
 
-    String newParamCode = visitor.fields.entries
-        .map((MapEntry<String, DartType> entry) =>
-    '${entry.key} : ${entry.key} ??'
-        ' master?.${entry.key}')
-        .toList()
-        .join(', ');
+    Class copier = generateCopier(
+        baseClassName: baseClassName,
+        newClassName: newClassName,
+        fields: fields
+    );
 
-    final String copy = '''
-      @override
-      $className copy() => _copy(this);
-    ''';
-
-    final String copyFrom = '''
-      @override
-      $className copyFrom($className master) => _copy(master);
-    ''';
-
-    final String copyWith = '''
-      @override
-      $className copyWith({\n$fieldParams}) => _copy(null,\n$paramCode);
-    ''';
-
-    final String _copy = '''
-      $className _copy($className master, {\n$fieldParams}) {
-        return $className(\n$newParamCode);
-      }
-    ''';
-
-    String methodsString = [copy, copyFrom, copyWith, _copy].join('\n');
-    return '''/*
-    Copy/Paste these methods into your class! Make sure to remember to 
-    $methodsString
-    */''';
+    // Generate code and return
+    final DartEmitter emitter = DartEmitter();
+    final String generatedCode = '${copier.accept(emitter)}';
+    return DartFormatter().format(generatedCode);
   }
 }
 

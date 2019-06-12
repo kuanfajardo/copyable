@@ -2,72 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:copier/src/copier.dart';
 
+// TODO: Copyables
+
 // Default instances of copiers for convenience.
 AppBarCopier appBarCopier = AppBarCopier();
 BottomNavigationBarCopier bottomNavigationBarCopier =
     BottomNavigationBarCopier();
 FloatingActionButtonCopier floatingActionButtonCopier =
     FloatingActionButtonCopier();
-
-//void example() {
-//  CopyableAppBar bar_1 = CopyableAppBar();
-//
-//  // Copy object
-//  CopyableAppBar bar_2 = bar_1.copy();
-//
-//  // Copy with properties
-//  CopyableAppBar bar_3 = bar_2.copyWith(
-//    bottomOpacity: 0.56,
-//    toolbarOpacity: 0.4,
-//  );
-//
-//  // Chaining
-//  CopyableAppBar bar_4 = bar_1
-//    .copyFrom(bar_1)
-//    .copyFrom(bar_2)
-//    .copyWith(
-//      leading: null,
-//      automaticallyImplyLeading: false,
-//    );
-//
-//  print(bar_1);
-//  print(bar_2);
-//  print(bar_3);
-//  print(bar_4);
-//}
-//
-//class CopyableAppBar extends AppBar implements Copyable<AppBar> {
-//  CopyableAppBar copy() {
-//    return CopyableAppBar();
-//  }
-//
-//  CopyableAppBar copyFrom(AppBar master) {
-//    return master;
-//  }
-//
-//  CopyableAppBar copyWith({
-//    Widget leading,
-//    bool automaticallyImplyLeading,
-//    Widget title,
-//    List<Widget> actions,
-//    Widget flexibleSpace,
-//    PreferredSizeWidget bottom,
-//    double elevation,
-//    ShapeBorder shape,
-//    Color backgroundColor,
-//    Brightness brightness,
-//    IconThemeData iconTheme,
-//    IconThemeData actionsIconTheme,
-//    TextTheme textTheme,
-//    bool primary,
-//    bool centerTitle,
-//    double titleSpacing,
-//    double toolbarOpacity,
-//    double bottomOpacity,
-//  }) {
-//    return CopyableAppBar();
-//  }
-//}
 
 /// Copier for `AppBar`
 class AppBarCopier implements Copier<AppBar> {

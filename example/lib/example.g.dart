@@ -3,7 +3,7 @@
 part of 'example.dart';
 
 // **************************************************************************
-// CopierGenerator
+// LocalCopierGenerator
 // **************************************************************************
 
 class CircleCopier implements Copier<Circle> {
@@ -63,32 +63,32 @@ class CircleCopier implements Copier<Circle> {
 }
 
 // **************************************************************************
-// CopyFunctionsGenerator
+// LocalCopyableGenerator
 // **************************************************************************
 
 /*
     Copy/Paste these methods into your class! Make sure to remember to 
           @override
-      Rectangle copy() => _copy(this);
+      Circle copy() => _copy(this);
     
       @override
-      Rectangle copyFrom(Rectangle master) => _copy(master);
+      Circle copyFrom(Circle master) => _copy(master);
     
       @override
-      Rectangle copyWith({
-int length,
-int width,
-Rectangle parent}) => _copy(null,
-length: length,
-width: width,
-parent: parent);
+      Circle copyWith({
+int radius,
+int centerX,
+int centerY}) => _copy(null,
+radius: radius,
+centerX: centerX,
+centerY: centerY);
     
-      Rectangle _copy(Rectangle master, {
-int length,
-int width,
-Rectangle parent}) {
-        return Rectangle(
-length : length ?? master?.length, width : width ?? master?.width, parent : parent ?? master?.parent);
+      Circle _copy(Circle master, {
+int radius,
+int centerX,
+int centerY}) {
+        return Circle(
+radius : radius ?? master?.radius, centerX : centerX ?? master?.centerX, centerY : centerY ?? master?.centerY);
       }
     
     */

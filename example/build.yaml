@@ -1,13 +1,13 @@
 targets:
   $default:
     builders:
-      copyable_generator|copier:
-        generate_for:
-          - lib/example.dart
       copyable_generator|copyable:
         generate_for:
           - lib/example.dart
-      copyable_generator|functions:
+      copyable_generator|foreignCopyable:
+        generate_for:
+          - lib/example.dart
+      copyable_generator|copier:
         generate_for:
           - lib/example.dart
       copyable_generator|foreignCopier:

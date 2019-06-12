@@ -45,7 +45,7 @@ class Point implements Copyable<Point> {
 /// Use generator to write copy code for you! Just add the @copy_functions
 /// annotation to your class. Don't forget to add `implements
 /// Copyable<{className}>`
-@copy_functions
+@generate_copyable
 class Rectangle implements Copyable<Rectangle> {
   final int length;
   final int width;
@@ -61,7 +61,7 @@ class Rectangle implements Copyable<Rectangle> {
 }
 
 /// Use the @build_copier annotation to generate a Copier for your class.
-@build_copier
+@generate_copier
 class Circle {
   final int radius;
   final int centerX;

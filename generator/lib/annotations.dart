@@ -1,9 +1,9 @@
 /// Annotation for generator
-class BuildCopier {
-  const BuildCopier();
+class GenerateCopier {
+  const GenerateCopier();
 }
 
-const build_copier = BuildCopier();
+const generate_copier = GenerateCopier();
 
 enum CopyType { copier, copyable }
 
@@ -50,8 +50,9 @@ class CopierMeta extends _CopyMeta {
   );
 }
 
-class CopyFunctions {
-  const CopyFunctions();
+class GenerateCopyable {
+  const GenerateCopyable();
 }
 
-const copy_functions = CopyFunctions();
+const generate_copyable = GenerateCopyable();
+
