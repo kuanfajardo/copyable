@@ -53,23 +53,25 @@ class LocalCopyableGenerator extends GeneratorForAnnotation<GenerateCopyable> {
       $className copy() => _copy(this);
     ''';
 
-    final String copyFrom = '''
-      @override
-      $className copyFrom($className master) => _copy(master);
-    ''';
-
     final String copyWith = '''
       @override
-      $className copyWith({\n$fieldParams}) => _copy(null,\n$paramCode);
+      $className copyWith($className master) => _copy(master);
+    ''';
+
+    final String copyWithProperties = '''
+      @override
+      $className copyWithProperties({\n$fieldParams}) => _copy(this,
+      \n$paramCode);
     ''';
 
     final String _copy = '''
       $className _copy($className master, {\n$fieldParams}) {
+        master = master ?? this;
         return $className(\n$newParamCode);
       }
     ''';
 
-    String methodsString = [copy, copyFrom, copyWith, _copy].join('\n');
+    String methodsString = [copy, copyWith, copyWithProperties,_copy].join('\n');
     return '''/*
     Copy/Paste these methods into your class! Make sure to remember to 
     $methodsString
@@ -134,6 +136,7 @@ class ForeignCopyableGenerator extends Generator {
         .join(', ');
 
     Code _copyCode = Code('''
+      master = master ?? this.master;
       $baseClassName new$baseClassName = $baseClassName(
         $detailedParamCode
       );
@@ -149,8 +152,8 @@ class ForeignCopyableGenerator extends Generator {
       ''')
     );
 
-    final Method copyFrom = Method((b) => b
-      ..name = 'copyFrom'
+    final Method copyWith = Method((b) => b
+      ..name = 'copyWith'
       ..requiredParameters.add(Parameter((b) => b
         ..name = 'master'
         ..type = refer(baseClassName)
@@ -161,12 +164,12 @@ class ForeignCopyableGenerator extends Generator {
       ''')
     );
 
-    final Method copyWith = Method((b) => b
-      ..name = 'copyWith'
+    final Method copyWithProperties = Method((b) => b
+      ..name = 'copyWithProperties'
       ..optionalParameters.addAll(fieldParams)
       ..returns = refer(newClassName)
       ..body = Code('''
-        return this._copy(null, $paramCode);
+        return this._copy(this.master, $paramCode);
       ''')
 //      ..annotations.add(Expression)
     );
@@ -220,9 +223,9 @@ class ForeignCopyableGenerator extends Generator {
       ..fields.add(masterField)
       ..methods.addAll([
         copy,
-        copyFrom,
         copyWith,
-        _copy
+        copyWithProperties,
+        _copy,
       ])
       ..extend = refer(baseClassName)
       ..implements.add(refer('Copyable<$baseClassName>'))
