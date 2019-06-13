@@ -19,17 +19,20 @@ class Point implements Copyable<Point> {
   Point copy() => _copy(this);
 
   @override
-  Point copyWith({
+  Point copyWith(Point master) => _copy(master);
+
+  @override
+  Point copyWithProperties({
     int x,
     int y,
     Point parent
-  }) => _copy(null,
+  }) => _copy(this,
       x: x,
       y: y,
       parent: parent
   );
 
-  Point _copy(Point master, {
+  static Point _copy(Point master, {
     int x,
     int y,
     Point parent
@@ -42,18 +45,19 @@ class Point implements Copyable<Point> {
   }
 }
 
-/// Use the @generate_copyable annotation to generate the code for
-/// implementation methods of the Copyable interface (so you don't have to!).
-/// The output will be in $fileName.g.dart, so don't forget to add
+/// Use the @generate_copyable annotation to generate a mixin named
+/// `Copyable$className with the implementation methods of the Copyable
+/// interface (so you don't have to!). The output will be in $fileName.g
+/// .dart, so don't forget to add
 /// ```
 /// part '$fileName.g.dart'
 /// ```
 /// to the top of the file.
 ///
-/// Additionally, you have to manually copy/paste the generated code into the
-/// annotated class. Don't forget to add `implements Copyable<$className>`.
+/// Additionally, you have to add the `with Copyable$className` and
+/// `implements Copyable<$className>` modifiers to your class definition.
 @generate_copyable
-class Rectangle implements Copyable<Rectangle> {
+class Rectangle with CopyableRectangle implements Copyable<Rectangle> {
   final int length;
   final int width;
   Rectangle parent;
@@ -63,41 +67,12 @@ class Rectangle implements Copyable<Rectangle> {
     this.width,
     this.parent
   });
-
-  // Paste code from example.g.dart here:
-  /*
-  @override
-  Rectangle copy() => _copy(this);
-
-  @override
-  Rectangle copyWith({
-    int length,
-    int width,
-    Rectangle parent
-  }) => _copy(null,
-      length: length,
-      width: width,
-      parent: parent
-  );
-
-  Rectangle _copy(Rectangle master, {
-    int length,
-    int width,
-    Rectangle parent
-  }) {
-    return Rectangle(
-        length : length ?? master?.length,
-        width : width ?? master?.width,
-        parent : parent ?? master?.parent
-    );
-  }
-  */
 }
 
 /// For classes that are defined elsewhere (not editable, i.e. Flutter
 /// widgets), define a CopyableMeta object describing the class that you want
 /// to generate a Copyable version of for. These "foreign" copiers will end up
-/// in .copyable.dart files.
+/// in $fileName.copyable.dart files.
 const CopyableMeta appBarCopyableMeta = CopyableMeta(
   import: 'package:flutter/material.dart',
   baseClassName: 'AppBar',
