@@ -17,7 +17,6 @@ abstract class Copyable<T> {
 /// An interface for giving copy capabilities to classes whose implementation
 /// is not editable (i.e. Flutter widgets). See [builtins](builtins.dart) for
 /// examples on how to implement. TODO: Add documentation on generation.
-// TODO: default passed on instantiation
 // TODO: add copyWith and copyWithProperties
 abstract class Copier<T> {
   /// Necessary in order to support chaining of `copy()` calls.

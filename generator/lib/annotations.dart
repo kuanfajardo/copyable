@@ -1,9 +1,9 @@
 /// Annotation for generator
 class GenerateCopier {
-  const GenerateCopier();
-}
+  final String defaultObjectCode;
 
-const generate_copier = GenerateCopier();
+  const GenerateCopier({this.defaultObjectCode});
+}
 
 enum CopyType { copier, copyable }
 
@@ -36,17 +36,20 @@ class CopyableMeta extends _CopyMeta {
 }
 
 class CopierMeta extends _CopyMeta {
+  final String defaultObjectCode;
+
   const CopierMeta({
     String import,
     String baseClassName,
     String newClassName,
-    Map<String, String> fields
+    Map<String, String> fields,
+    this.defaultObjectCode,
   }) : super(
       copyType: CopyType.copier,
       import: import,
       baseClassName: baseClassName,
       newClassName: newClassName ?? baseClassName + 'Copier',
-      fields: fields
+      fields: fields,
   );
 }
 

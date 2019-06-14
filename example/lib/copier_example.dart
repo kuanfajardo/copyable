@@ -5,7 +5,7 @@ part 'copier_example.g.dart';
 
 /// Use the @generate_copier annotation to generate a Copier for your local
 /// class. Local copiers will end up in $fileName.g.dart files.
-@generate_copier
+@GenerateCopier(defaultObjectCode: 'Circle(radius: 1)')
 class Circle {
   final int radius;
   final int centerX;
@@ -15,7 +15,7 @@ class Circle {
     this.radius,
     this.centerX,
     this.centerY
-  });
+  }) : assert(radius > 0);
 }
 
 /// For classes that are defined elsewhere (not editable, i.e. Flutter
@@ -23,11 +23,13 @@ class Circle {
 /// to generate a copier for. These "foreign" copiers will end up in $fileName
 /// .copier.dart files.
 const CopierMeta appBarCopierMeta = CopierMeta(
-    import: 'package:flutter/material.dart',
-    baseClassName: 'AppBar',
-    fields: {
-      'title': 'Widget',
-      'elevation': 'double',
-      'primary': 'bool',
-    }
+  import: 'package:flutter/material.dart',
+  baseClassName: 'AppBar',
+  fields: {
+    'title': 'Widget',
+    'elevation': 'double',
+    'primary': 'bool',
+  },
+  defaultObjectCode: 'AppBar()' // Defaults to this, but always nce to be
+  // explicit
 );

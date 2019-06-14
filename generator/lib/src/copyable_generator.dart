@@ -157,7 +157,7 @@ class ForeignCopyableGenerator extends Generator {
     }).toList();
 
     // Various code blocks
-    String paramCode = fieldParams.map((Para  meter p) => '${p.name} : ${p
+    String paramCode = fieldParams.map((Parameter p) => '${p.name} : ${p
         .name}').toList().join(', ');
 
     String detailedParamCode = fieldParams
@@ -308,12 +308,15 @@ class LocalCopierGenerator extends GeneratorForAnnotation<GenerateCopier> {
     String baseClassName = element.name;
     String newClassName = baseClassName + 'Copier';
     List<Parameter> fields = visitor.fields;
+    String defaultObjectCode = annotation.read('defaultObjectCode').stringValue
+        ?? '$baseClassName()';
 
     // Generate copier class.
     Class copier = generateCopierClass(
         baseClassName: baseClassName,
         newClassName: newClassName,
-        fields: fields
+        fields: fields,
+        defaultObjectCode: defaultObjectCode,
     );
 
     // Generate code from copier class and return.
@@ -345,13 +348,15 @@ class ForeignCopierGenerator extends Generator {
   String generateFromVariableElement(VariableElement e) {
     // (super) field is where DartObject stores fields of superclass (i.e.
     // _CopyMeta)
-    DartObject meta = e.computeConstantValue().getField('(super)'); //
+    DartObject meta = e.computeConstantValue(); //
 
     // Properties needed to generate copier.
-    String import = meta.getField('import').toStringValue();
-    String baseClassName = meta.getField('baseClassName').toStringValue();
-    String newClassName = meta.getField('newClassName').toStringValue();
-    List<Parameter> fields = meta
+    DartObject superMeta = meta.getField('(super)');
+
+    String import = superMeta.getField('import').toStringValue();
+    String baseClassName = superMeta.getField('baseClassName').toStringValue();
+    String newClassName = superMeta.getField('newClassName').toStringValue();
+    List<Parameter> fields = superMeta
         .getField('fields')
         .toMapValue()
         .entries
@@ -363,12 +368,15 @@ class ForeignCopierGenerator extends Generator {
               ..named = true
             )
     ).toList();
+    String defaultObjectCode = meta.getField('defaultObjectCode')
+        .toStringValue() ?? '$baseClassName()';
 
     // Generate copier class.
     Class copier = generateCopierClass(
       baseClassName: baseClassName,
       newClassName: newClassName,
-      fields: fields
+      fields: fields,
+      defaultObjectCode: defaultObjectCode,
     );
 
     // Library needs to know of 'copier' package and package of class being
@@ -391,7 +399,8 @@ class ForeignCopierGenerator extends Generator {
 Class generateCopierClass({
   String baseClassName,
   String newClassName,
-  List<Parameter> fields
+  List<Parameter> fields,
+  String defaultObjectCode,
 }) {
   // Convenience for forwarding parameters to another method.
   String forwardParameters = fields
@@ -503,15 +512,13 @@ Class generateCopierClass({
     ..type = refer(baseClassName)
   );
 
-  // TODO: Pass this in annotation.
   final Method defaultMaster = Method((b) => b
     ..name = 'defaultMaster'
     ..returns = refer(baseClassName)
     ..type = MethodType.getter
     ..body = Code('''
-        // TODO: Implement default
-        return null;
-      '''));
+      return $defaultObjectCode;
+    '''));
 
   // Define copier class.
   final Class copier = Class((b) => b
