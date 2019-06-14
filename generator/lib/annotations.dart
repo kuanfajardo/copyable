@@ -61,3 +61,8 @@ class GenerateCopyable {
 
 const generate_copyable = GenerateCopyable();
 
+class CopyMetaGenerator {
+  final List<CopierMeta> copiers;
+  final List<CopyableMeta>copyables;
+  const CopyMetaGenerator({this.copiers, this.copyables});
+}

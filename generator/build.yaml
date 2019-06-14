@@ -7,13 +7,6 @@ builders:
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
 
-  foreignCopyable:
-    import: "package:copyable_generator/builder.dart"
-    builder_factories: ["foreignCopyableLibraryBuilder"]
-    build_extensions: {".dart": [".copyable.dart"]}
-    auto_apply: dependents
-    build_to: source
-
   copier:
     import: "package:copyable_generator/builder.dart"
     builder_factories: ["localCopierBuilder"]
@@ -22,9 +15,16 @@ builders:
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
 
-  foreignCopier:
+  foreignCopyableLib:
+    import: "package:copyable_generator/builder.dart"
+    builder_factories: ["foreignCopyableLibraryBuilder"]
+    build_extensions: {".dart": [".copyables.dart"]}
+    auto_apply: dependents
+    build_to: source
+
+  foreignCopierLib:
     import: "package:copyable_generator/builder.dart"
     builder_factories: ["foreignCopierLibraryBuilder"]
-    build_extensions: {".dart": [".copier.dart"]}
+    build_extensions: {".dart": [".copiers.dart"]}
     auto_apply: dependents
     build_to: source

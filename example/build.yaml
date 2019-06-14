@@ -4,12 +4,12 @@ targets:
       copyable_generator|copyable:
         generate_for:
           - lib/copyable_example.dart
-      copyable_generator|foreignCopyable:
-        generate_for:
-          - lib/copyable_example.dart
       copyable_generator|copier:
         generate_for:
           - lib/copier_example.dart
-      copyable_generator|foreignCopier:
+      copyable_generator|foreignCopyableLib:
         generate_for:
-          - lib/copier_example.dart
+          - lib/metas_example.dart
+      copyable_generator|foreignCopierLib:
+        generate_for:
+          - lib/metas_example.dart

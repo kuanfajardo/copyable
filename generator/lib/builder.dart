@@ -6,12 +6,13 @@ import 'src/copyable_generator.dart';
 Builder localCopyableBuilder(BuilderOptions options) =>
     SharedPartBuilder([LocalCopyableGenerator()], 'copyable');
 
-Builder foreignCopyableLibraryBuilder(BuilderOptions options) =>
-    LibraryBuilder(ForeignCopyableGenerator(), generatedExtension: '.copyable.dart');
-
 Builder localCopierBuilder(BuilderOptions options) =>
     SharedPartBuilder([LocalCopierGenerator()], 'copier');
 
+Builder foreignCopyableLibraryBuilder(BuilderOptions options) =>
+    LibraryBuilder(ForeignCopyableLibraryGenerator(), generatedExtension: ''
+        '.copyables.dart');
+
 Builder foreignCopierLibraryBuilder(BuilderOptions options) =>
-    LibraryBuilder(ForeignCopierGenerator(), generatedExtension: '.copier'
-        '.dart');
+    LibraryBuilder(ForeignCopierLibraryGenerator(), generatedExtension: ''
+        '.copiers.dart');
