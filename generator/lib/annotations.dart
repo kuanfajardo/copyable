@@ -5,6 +5,8 @@ class GenerateCopier {
   const GenerateCopier({this.defaultObjectCode});
 }
 
+const generate_copier = GenerateCopier();
+
 enum CopyType { copier, copyable }
 
 class _CopyMeta {
