@@ -1,6 +1,8 @@
 import 'package:copier/copier.dart';
 import 'package:copyable_generator/annotations.dart';
 
+import 'package:flutter/material.dart';
+
 part 'copier_example.g.dart';
 
 /// Use the @GenerateCopier annotation to generate a Copier for your local
@@ -29,11 +31,11 @@ class Circle {
 /// .copier.dart files.
 const CopierMeta appBarCopierMeta = CopierMeta(
   import: 'package:flutter/material.dart',
-  baseClassName: 'AppBar',
+  baseClass: AppBar,
   fields: {
-    'title': 'Widget',
-    'elevation': 'double',
-    'primary': 'bool',
+    'title': Widget,
+    'elevation': double,
+    'primary': bool,
   },
   defaultObjectCode: 'AppBar()' // If not provided defaults to `$baseClassName()`
 );

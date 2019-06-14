@@ -12,11 +12,11 @@ enum CopyType { copier, copyable }
 class _CopyMeta {
   final CopyType copyType;
   final String import;
-  final String baseClassName;
+  final Type baseClass;
   final String newClassName;
-  final Map<String, String> fields;
+  final Map<String, Type> fields;
 
-  const _CopyMeta({this.copyType, this.import, this.baseClassName, this
+  const _CopyMeta({this.copyType, this.import, this.baseClass, this
       .newClassName,
     this
       .fields});
@@ -25,14 +25,14 @@ class _CopyMeta {
 class CopyableMeta extends _CopyMeta {
   const CopyableMeta({
     String import,
-    String baseClassName,
+    Type baseClass,
     String newClassName,
-    Map<String, String> fields
+    Map<String, Type> fields
   }) : super(
       copyType: CopyType.copyable,
       import: import,
-      baseClassName: baseClassName,
-      newClassName: newClassName ?? 'Copyable' + baseClassName,
+      baseClass: baseClass,
+      newClassName: newClassName,
       fields: fields
   );
 }
@@ -42,15 +42,15 @@ class CopierMeta extends _CopyMeta {
 
   const CopierMeta({
     String import,
-    String baseClassName,
+    Type baseClass,
     String newClassName,
-    Map<String, String> fields,
+    Map<String, Type> fields,
     this.defaultObjectCode,
   }) : super(
       copyType: CopyType.copier,
       import: import,
-      baseClassName: baseClassName,
-      newClassName: newClassName ?? baseClassName + 'Copier',
+      baseClass: baseClass,
+      newClassName: newClassName,
       fields: fields,
   );
 }

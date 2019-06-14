@@ -1,6 +1,8 @@
 import 'package:copier/copier.dart';
 import 'package:copyable_generator/annotations.dart';
 
+import 'package:flutter/material.dart';
+
 part 'copyable_example.g.dart';
 
 /// Naive implementation of Copyable
@@ -75,10 +77,10 @@ class Rectangle with CopyableRectangle implements Copyable<Rectangle> {
 /// in $fileName.copyable.dart files.
 const CopyableMeta appBarCopyableMeta = CopyableMeta(
   import: 'package:flutter/material.dart',
-  baseClassName: 'AppBar',
+  baseClass: AppBar,
   fields: {
-    'title': 'Widget',
-    'elevation': 'double',
-    'primary': 'bool',
+    'title': Widget,
+    'elevation': double,
+    'primary': bool,
   },
 );

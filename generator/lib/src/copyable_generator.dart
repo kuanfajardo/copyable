@@ -134,8 +134,9 @@ class ForeignCopyableGenerator extends Generator {
 
     // Properties needed to generate Copyable.
     String import = meta.getField('import').toStringValue();
-    String baseClassName = meta.getField('baseClassName').toStringValue();
-    String newClassName = meta.getField('newClassName').toStringValue();
+    String baseClassName = meta.getField('baseClass').toTypeValue().name;
+    String newClassName = meta.getField('newClassName')?.toStringValue() ?? ''
+        'Copyable' + baseClassName;
     Map<String, String> fields = meta
         .getField('fields')
         .toMapValue()
@@ -143,7 +144,7 @@ class ForeignCopyableGenerator extends Generator {
             (DartObject key, DartObject value) =>
                 MapEntry(
                     key.toStringValue(),
-                    value.toStringValue()
+                    value.toTypeValue().name
                 )
         );
 
@@ -306,7 +307,7 @@ class LocalCopierGenerator extends GeneratorForAnnotation<GenerateCopier> {
 
     // Properties needed to generate copier.
     String baseClassName = element.name;
-    String newClassName = baseClassName + 'Copier';
+    String newClassName = baseClassName + 'Copier'; // TODO: Expose this option
     List<Parameter> fields = visitor.fields;
     String defaultObjectCode = annotation.read('defaultObjectCode').stringValue
         ?? '$baseClassName()';
@@ -354,8 +355,9 @@ class ForeignCopierGenerator extends Generator {
     DartObject superMeta = meta.getField('(super)');
 
     String import = superMeta.getField('import').toStringValue();
-    String baseClassName = superMeta.getField('baseClassName').toStringValue();
-    String newClassName = superMeta.getField('newClassName').toStringValue();
+    String baseClassName = superMeta.getField('baseClass').toTypeValue().name;
+    String newClassName = superMeta.getField('newClassName')?.toStringValue()
+      ?? baseClassName + 'Copier';
     List<Parameter> fields = superMeta
         .getField('fields')
         .toMapValue()
@@ -364,7 +366,7 @@ class ForeignCopierGenerator extends Generator {
             (MapEntry<DartObject, DartObject> entry) =>
             Parameter((b) => b
               ..name = entry.key.toStringValue()
-              ..type = refer(entry.value.toStringValue())
+              ..type = refer(entry.value.toTypeValue().name)
               ..named = true
             )
     ).toList();
