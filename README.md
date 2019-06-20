@@ -4,7 +4,8 @@ A package for giving copy capabilities to classes, both local (i.e. in
 your source code), and foreign (i.e. defined in a third-party library).
 
 #### Table of Contents
-- [Intro](#intro)
+- [Examples](#examples)
+- [Usage](#usage)
 - [Setup](#setup)
 - [Copyable](#copyable-1)
   - [Interface](#interface)
@@ -16,9 +17,12 @@ your source code), and foreign (i.e. defined in a third-party library).
   - [Code Generation](#code-generation-1) 
 - [Code Generation](#code-generation-2)
   - [Setup](#setup-1) 
-  - [Usage](#usage)
+  - [Usage](#usage-1)
 
-## Intro
+## Examples
+The best way to learn is with [examples](./examples).
+ 
+## Usage
 The `copyable` package defines two interfaces for giving copy-like
 functionality to Dart classes: `Copyable` and `Copier`. 
 
@@ -30,8 +34,9 @@ you can copy instances of the class like this:
 class Point implements Copyable<Point> {
   final int x;
   final int y;
+  final Shape parent;
   
-  Point(this.x, this.y,);
+  Point(this.x, this.y, {this.parent});
 
   // Implement Copyable interface
 }
@@ -272,6 +277,8 @@ dev_dependencies:
   build_verify: ^1.1.0
 ```
 
+Make sure to run `pub get` or `flutter packages get`.
+
 If you don't already a `build.yaml` file, create one in your project
 root directory (wherever `pubspec.yaml` is). Then, add the following to
 your `build.yaml`:
@@ -312,22 +319,26 @@ targets:
 
 ### Usage
 
+[Examples](./examples)
+
 0. Import `package:copyable/generator.dart`.
 
 #### `copyable`
+[Example](./examples/rectangle.dart)
+ 
 1. Annotate the class you want to generate copy code for with
    `@generate_copyable`.
-2. Add
+2. Add the following to the top of your file:
 ```dart
 part '$FILE_NAME.g.dart';
 ```
-to the top of your file.
-
 3. Run the builder (see below). This will generate a **mixin** with the
    necessary copy-code as a `part of` file
 4. Add the generated mixin to your original class.
 
 #### `copier` 
+[Example](./examples/circle.dart) 
+
 1. Annotate the class you want to generate copy code for with
    `@GenerateCopier(defaultObjectCode: $DEFAULT)`. 
    
@@ -338,17 +349,17 @@ to the top of your file.
    @GenerateCopier(defaultObjectCode: 'Circle(radius: 1')   
    ```
    
-2. Add
+2. Add the following to the top of your file:
 ```dart
 part '$FILE_NAME.g.dart';
 ```
-to the top of your file.
 
 3. Run the builder (see below). This will generate a **separate class**
    with the necessary copy-code as a `part of` file.
 
 #### `foreignCopyableLib`
-
+[Example](./examples/metas.dart)
+ 
 1. Create a `CopyableMeta` instance representing the class you want to
    generate a copyable version of for.
 2. Create a `CopyMetaGenerator` instance and pass in the meta object.
@@ -356,9 +367,13 @@ to the top of your file.
    **library** generated classes.
    
 #### `foreignCopyableLib`
+[Example](./examples/metas.dart)
 
 1. Create a `CopierMeta` instance representing the class you want to
    generate a copyable version of for.
 2. Create a `CopyMetaGenerator` instance and pass in the meta object.
 3. Run the builder (see below). This will generate a separate
    **library** generated classes.
+
+### Running
+In the directory where your `build.yaml` is, run the following 
