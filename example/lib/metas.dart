@@ -1,4 +1,4 @@
-import 'package:copyable/copyable.dart';
+import 'package:copyable/generator.dart';
 
 import 'package:flutter/material.dart';
 

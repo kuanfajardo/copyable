@@ -1,4 +1,5 @@
 import 'package:copyable/copyable.dart';
+import 'package:copyable/generator.dart';
 
 part 'rectangle.g.dart';
 

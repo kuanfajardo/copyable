@@ -1,4 +1,5 @@
 import 'package:copyable/copyable.dart';
+import 'package:copyable/generator.dart';
 
 part 'circle.g.dart';
 
