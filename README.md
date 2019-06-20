@@ -4,8 +4,8 @@ A package for giving copy capabilities to classes, both local (i.e. in
 your source code), and foreign (i.e. defined in a third-party library).
 
 #### Table of Contents
+- [Intro](#intro)
 - [Setup](#setup)
-- [Getting Started](#getting-started)
 - [Copyable](#copyable-1)
   - [Interface](#interface)
   - [Implementation](#implementation)
@@ -17,20 +17,8 @@ your source code), and foreign (i.e. defined in a third-party library).
 - [Code Generation](#code-generation-2)
   - [Setup](#setup-1) 
   - [Usage](#usage)
- 
 
-### Setup
-
-Add the following dependency to your `pubspec.yaml`
-
-```yaml
-dependencies:
-  copyable: ^0.0.1
-```
-
-Using the code generation tools requires additional [setup](#setup-1).
-
-### Getting Started
+## Intro
 The `copyable` package defines two interfaces for giving copy-like
 functionality to Dart classes: `Copyable` and `Copier`. 
 
@@ -77,6 +65,17 @@ Whether to use `Copyable` or `Copier` is a matter of preference: the
 `Copyable` pattern adds copy functionality **directly** into a class,
 where as the `Copier` pattern adds copy functionality **indirectly** by
 creating an entirely new class.
+
+## Setup
+
+Add the following dependency to your `pubspec.yaml`
+
+```yaml
+dependencies:
+  copyable: ^0.0.1
+```
+
+Using the code generation tools requires additional [setup](#setup-1).
 
 ## Copyable
 
@@ -259,12 +258,12 @@ If you don't want to manually implement the `Copier` interface (I know,
 it's a lot of boilerplate :/ ), have no fear! Check out the
 [code generation](#code-generation-2) section.
 
-### Code Generation
+## Code Generation
 Most of the code needed to implement either `Copyable` or `Copier` is
 boilerplate and not fun. Instead, you can generate the respective
 `Copyable` or `Copier` code using `build_runner`.
 
-#### Setup
+### Setup
 Add the following **dev** dependencies to your `pubspec.yaml`:
 
 ```yaml
@@ -284,7 +283,7 @@ targets:
       # TODO: Add builders
 ```
 
-###### Builders
+##### Builders
 
 There are four different builders you can use to generate copy-code.
 Each builder corresponds to one of the four use cases described earlier
@@ -311,7 +310,7 @@ targets:
       # More builders if needed...
 ```
 
-#### Usage
+### Usage
 
 0. Import `package:copyable/generator.dart`.
 
