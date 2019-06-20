@@ -1,6 +1,6 @@
 builders:
   copyable:
-    import: "package:copyable_generator/builder.dart"
+    import: "package:copyable_generator/src/builder.dart"
     builder_factories: ["localCopyableBuilder"]
     build_extensions: {".dart": ["copyable.g.part"]}
     auto_apply: dependents
@@ -8,7 +8,7 @@ builders:
     applies_builders: ["source_gen|combining_builder"]
 
   copier:
-    import: "package:copyable_generator/builder.dart"
+    import: "package:copyable_generator/src/builder.dart"
     builder_factories: ["localCopierBuilder"]
     build_extensions: {".dart": ["copier.g.part"]}
     auto_apply: dependents
@@ -16,14 +16,14 @@ builders:
     applies_builders: ["source_gen|combining_builder"]
 
   foreignCopyableLib:
-    import: "package:copyable_generator/builder.dart"
+    import: "package:copyable_generator/src/builder.dart"
     builder_factories: ["foreignCopyableLibraryBuilder"]
     build_extensions: {".dart": [".copyables.dart"]}
     auto_apply: dependents
     build_to: source
 
   foreignCopierLib:
-    import: "package:copyable_generator/builder.dart"
+    import: "package:copyable_generator/src/builder.dart"
     builder_factories: ["foreignCopierLibraryBuilder"]
     build_extensions: {".dart": [".copiers.dart"]}
     auto_apply: dependents

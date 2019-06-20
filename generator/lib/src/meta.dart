@@ -1,12 +1,3 @@
-/// Annotation for generator
-class GenerateCopier {
-  final String defaultObjectCode;
-
-  const GenerateCopier({this.defaultObjectCode});
-}
-
-const generate_copier = GenerateCopier();
-
 enum CopyType { copier, copyable }
 
 class _CopyMeta {
@@ -19,7 +10,7 @@ class _CopyMeta {
   const _CopyMeta({this.copyType, this.import, this.baseClass, this
       .newClassName,
     this
-      .fields});
+        .fields});
 }
 
 class CopyableMeta extends _CopyMeta {
@@ -47,19 +38,13 @@ class CopierMeta extends _CopyMeta {
     Map<String, String> fields,
     this.defaultObjectCode,
   }) : super(
-      copyType: CopyType.copier,
-      import: import,
-      baseClass: baseClass,
-      newClassName: newClassName,
-      fields: fields,
+    copyType: CopyType.copier,
+    import: import,
+    baseClass: baseClass,
+    newClassName: newClassName,
+    fields: fields,
   );
 }
-
-class GenerateCopyable {
-  const GenerateCopyable();
-}
-
-const generate_copyable = GenerateCopyable();
 
 class CopyMetaGenerator {
   final List<CopierMeta> copiers;
