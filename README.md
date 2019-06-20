@@ -20,7 +20,7 @@ your source code), and foreign (i.e. defined in a third-party library).
   - [Usage](#usage-1)
 
 ## Examples
-The best way to learn is with [examples](./examples).
+The best way to learn is with [examples](./example).
  
 ## Usage
 The `copyable` package defines two interfaces for giving copy-like
@@ -319,12 +319,12 @@ targets:
 
 ### Usage
 
-[Examples](./examples)
+[Examples](./example)
 
 0. Import `package:copyable/generator.dart`.
 
 #### `copyable`
-[Example](./examples/rectangle.dart)
+[Example](./example/rectangle.dart)
  
 1. Annotate the class you want to generate copy code for with
    `@generate_copyable`.
@@ -337,7 +337,7 @@ part '$FILE_NAME.g.dart';
 4. Add the generated mixin to your original class.
 
 #### `copier` 
-[Example](../examples/circle.dart) 
+[Example](../example/circle.dart) 
 
 1. Annotate the class you want to generate copy code for with
    `@GenerateCopier(defaultObjectCode: $DEFAULT)`. 
@@ -358,7 +358,7 @@ part '$FILE_NAME.g.dart';
    with the necessary copy-code as a `part of` file.
 
 #### `foreignCopyableLib`
-[Example](examples/metas.dart)
+[Example](example/metas.dart)
  
 1. Create a `CopyableMeta` instance representing the class you want to
    generate a copyable version of for.
@@ -367,7 +367,7 @@ part '$FILE_NAME.g.dart';
    **library** generated classes.
    
 #### `foreignCopyableLib`
-[Example](./examples/metas.dart)
+[Example](./example/metas.dart)
 
 1. Create a `CopierMeta` instance representing the class you want to
    generate a copyable version of for.
@@ -376,4 +376,13 @@ part '$FILE_NAME.g.dart';
    **library** generated classes.
 
 ### Running
-In the directory where your `build.yaml` is, run the following 
+In the directory where your `build.yaml` is, run the following:
+
+**Flutter project**
+```
+flutter packages pub run build_runner build
+```
+**Non-flutter project**
+```
+pub run build_runner build
+```
