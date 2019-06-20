@@ -124,7 +124,7 @@ class ForeignCopyableLibraryGenerator extends Generator {
     });
 
     imports.add(
-        Directive.import('package:copier/copier.dart')
+        Directive.import('package:copyable/copyable.dart')
     );
 
     final Library copyableLib = Library((b) => b
@@ -195,7 +195,7 @@ class ForeignCopierLibraryGenerator extends Generator {
     });
 
     imports.add(
-        Directive.import('package:copier/copier.dart')
+        Directive.import('package:copyable/copyable.dart')
     );
 
     final Library copierLib = Library((b) => b

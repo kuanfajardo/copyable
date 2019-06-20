@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:copier/src/copier.dart';
+import 'package:copyable/src/copyable.dart';
 
 // TODO: Copyables
 

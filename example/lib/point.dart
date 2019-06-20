@@ -1,4 +1,4 @@
-import 'package:copier/copier.dart';
+import 'package:copyable/copyable.dart';
 
 /// Naive implementation of Copyable
 class Point implements Copyable<Point> {

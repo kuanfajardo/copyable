@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:copier/copier.dart';
+import 'package:copyable/copyable.dart';
 
 void main() {
   // TODO: Tests
