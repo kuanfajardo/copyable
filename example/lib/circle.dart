@@ -16,9 +16,5 @@ class Circle {
   final int centerX;
   final int centerY;
 
-  Circle({
-    this.radius,
-    this.centerX,
-    this.centerY
-  }) : assert(radius > 0);
+  Circle({this.radius, this.centerX, this.centerY}) : assert(radius > 0);
 }

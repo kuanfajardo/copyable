@@ -28,14 +28,12 @@ const CopierMeta appBarCopierMeta = CopierMeta(
       'elevation': 'double',
       'primary': 'bool',
     },
-    defaultObjectCode: 'AppBar()' // If not provided defaults to `$baseClassName()`
-);
+    defaultObjectCode:
+        'AppBar()' // If not provided defaults to `$baseClassName()`
+    );
 
-const CopyMetaGenerator metaGenerator = CopyMetaGenerator(
-    copyables: [
-      bottomNavigationBarCopyableMeta,
-    ],
-    copiers: [
-      appBarCopierMeta,
-    ]
-);
+const CopyMetaGenerator metaGenerator = CopyMetaGenerator(copyables: [
+  bottomNavigationBarCopyableMeta,
+], copiers: [
+  appBarCopierMeta,
+]);

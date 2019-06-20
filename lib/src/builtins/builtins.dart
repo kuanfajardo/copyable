@@ -20,8 +20,9 @@ class AppBarCopier implements Copier<AppBar> {
 
   @override
   AppBar get defaultMaster => AppBar();
-  
-  dynamic _copy(AppBar master, {
+
+  dynamic _copy(
+    AppBar master, {
     bool resolve: false,
     Widget leading,
     bool automaticallyImplyLeading,
@@ -50,25 +51,29 @@ class AppBarCopier implements Copier<AppBar> {
           defaultMaster.automaticallyImplyLeading,
       title: title ?? master?.title ?? defaultMaster.title,
       actions: actions ?? master?.actions ?? defaultMaster.actions,
-      flexibleSpace: flexibleSpace ?? master?.flexibleSpace ?? defaultMaster
-          .flexibleSpace,
+      flexibleSpace:
+          flexibleSpace ?? master?.flexibleSpace ?? defaultMaster.flexibleSpace,
       bottom: bottom ?? master?.bottom ?? defaultMaster.bottom,
       elevation: elevation ?? master?.elevation ?? defaultMaster.elevation,
       shape: shape ?? master?.shape ?? defaultMaster.shape,
-      backgroundColor: backgroundColor ?? master?.backgroundColor ?? defaultMaster
-          .backgroundColor,
+      backgroundColor: backgroundColor ??
+          master?.backgroundColor ??
+          defaultMaster.backgroundColor,
       brightness: brightness ?? master?.brightness ?? defaultMaster.brightness,
       iconTheme: iconTheme ?? master?.iconTheme ?? defaultMaster.iconTheme,
-      actionsIconTheme: actionsIconTheme ?? master?.actionsIconTheme ?? defaultMaster
-          .actionsIconTheme,
+      actionsIconTheme: actionsIconTheme ??
+          master?.actionsIconTheme ??
+          defaultMaster.actionsIconTheme,
       textTheme: textTheme ?? master?.textTheme ?? defaultMaster.textTheme,
-      centerTitle: centerTitle ?? master?.centerTitle ?? defaultMaster.centerTitle,
-      titleSpacing: titleSpacing ?? master?.titleSpacing ?? defaultMaster
-          .titleSpacing,
-      toolbarOpacity: toolbarOpacity ?? master?.toolbarOpacity ?? defaultMaster
-          .toolbarOpacity,
-      bottomOpacity: bottomOpacity ?? master?.bottomOpacity ?? defaultMaster
-          .bottomOpacity,
+      centerTitle:
+          centerTitle ?? master?.centerTitle ?? defaultMaster.centerTitle,
+      titleSpacing:
+          titleSpacing ?? master?.titleSpacing ?? defaultMaster.titleSpacing,
+      toolbarOpacity: toolbarOpacity ??
+          master?.toolbarOpacity ??
+          defaultMaster.toolbarOpacity,
+      bottomOpacity:
+          bottomOpacity ?? master?.bottomOpacity ?? defaultMaster.bottomOpacity,
     );
 
     return resolve ? newAppBar : AppBarCopier(newAppBar);
@@ -195,13 +200,14 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
 
   @override
   BottomNavigationBar get defaultMaster => BottomNavigationBar(items: [
-    BottomNavigationBarItem(icon: Icon(Icons.title), title: const Text
-      ('Title')),
-    BottomNavigationBarItem(icon: Icon(Icons.image), title: const Text
-      ('Image')),
-  ]);
+        BottomNavigationBarItem(
+            icon: Icon(Icons.title), title: const Text('Title')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.image), title: const Text('Image')),
+      ]);
 
-  dynamic _copy(BottomNavigationBar master, {
+  dynamic _copy(
+    BottomNavigationBar master, {
     bool resolve: false,
     List<BottomNavigationBarItem> items,
     ValueChanged<int> onTap,
@@ -221,28 +227,38 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
     BottomNavigationBar newBottomNavigationBar = BottomNavigationBar(
       items: items ?? master?.items ?? defaultMaster.items,
       onTap: onTap ?? master?.onTap ?? defaultMaster.onTap,
-      currentIndex: currentIndex ?? master?.currentIndex ?? defaultMaster.currentIndex,
+      currentIndex:
+          currentIndex ?? master?.currentIndex ?? defaultMaster.currentIndex,
       elevation: elevation ?? master?.elevation ?? defaultMaster.elevation,
       type: type ?? master?.type ?? defaultMaster.type,
       fixedColor: fixedColor ?? master?.fixedColor ?? defaultMaster.fixedColor,
-      backgroundColor: backgroundColor ?? master?.backgroundColor ?? defaultMaster.backgroundColor,
+      backgroundColor: backgroundColor ??
+          master?.backgroundColor ??
+          defaultMaster.backgroundColor,
       iconSize: iconSize ?? master?.iconSize ?? defaultMaster.iconSize,
-      selectedItemColor: selectedItemColor ?? master?.selectedItemColor ??
+      selectedItemColor: selectedItemColor ??
+          master?.selectedItemColor ??
           defaultMaster.selectedItemColor,
-      unselectedItemColor: unselectedItemColor ?? master?.unselectedItemColor
-          ?? defaultMaster.unselectedItemColor,
-      selectedFontSize: selectedFontSize ?? master?.selectedFontSize ?? defaultMaster
-          .selectedFontSize,
-      unselectedFontSize: unselectedFontSize ?? master?.unselectedFontSize ??
+      unselectedItemColor: unselectedItemColor ??
+          master?.unselectedItemColor ??
+          defaultMaster.unselectedItemColor,
+      selectedFontSize: selectedFontSize ??
+          master?.selectedFontSize ??
+          defaultMaster.selectedFontSize,
+      unselectedFontSize: unselectedFontSize ??
+          master?.unselectedFontSize ??
           defaultMaster.unselectedFontSize,
-      showSelectedLabels: showSelectedLabels ?? master?.showSelectedLabels ??
+      showSelectedLabels: showSelectedLabels ??
+          master?.showSelectedLabels ??
           defaultMaster.showSelectedLabels,
-      showUnselectedLabels: showUnselectedLabels ?? master?.showUnselectedLabels
-          ?? defaultMaster.showUnselectedLabels,
+      showUnselectedLabels: showUnselectedLabels ??
+          master?.showUnselectedLabels ??
+          defaultMaster.showUnselectedLabels,
     );
 
-    return resolve ? newBottomNavigationBar : BottomNavigationBarCopier
-      (newBottomNavigationBar);
+    return resolve
+        ? newBottomNavigationBar
+        : BottomNavigationBarCopier(newBottomNavigationBar);
   }
 
   @override
@@ -349,9 +365,11 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   FloatingActionButtonCopier([this.master]);
 
   @override
-  FloatingActionButton get defaultMaster => FloatingActionButton(onPressed: () => {});
+  FloatingActionButton get defaultMaster =>
+      FloatingActionButton(onPressed: () => {});
 
-  dynamic _copy(FloatingActionButton master, {
+  dynamic _copy(
+    FloatingActionButton master, {
     bool resolve = false,
     Widget child,
     String tooltip,
@@ -372,40 +390,43 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
       onPressed: onPressed ?? master?.onPressed ?? defaultMaster.onPressed,
       child: child ?? master?.child ?? defaultMaster.child,
       tooltip: tooltip ?? master?.tooltip ?? defaultMaster.tooltip,
-      foregroundColor: foregroundColor ?? master?.foregroundColor ?? defaultMaster.foregroundColor,
-      backgroundColor: backgroundColor ?? master?.backgroundColor ?? defaultMaster.backgroundColor,
+      foregroundColor: foregroundColor ??
+          master?.foregroundColor ??
+          defaultMaster.foregroundColor,
+      backgroundColor: backgroundColor ??
+          master?.backgroundColor ??
+          defaultMaster.backgroundColor,
       heroTag: heroTag ?? master?.heroTag ?? defaultMaster.heroTag,
       elevation: elevation ?? master?.elevation ?? defaultMaster.elevation,
-      highlightElevation: highlightElevation ?? master?.highlightElevation ??
+      highlightElevation: highlightElevation ??
+          master?.highlightElevation ??
           defaultMaster.highlightElevation,
-      disabledElevation: disabledElevation ?? master?.disabledElevation ??
+      disabledElevation: disabledElevation ??
+          master?.disabledElevation ??
           defaultMaster.disabledElevation,
       mini: mini ?? master?.mini ?? defaultMaster.mini,
       shape: shape ?? master?.shape ?? defaultMaster.shape,
-      clipBehavior: clipBehavior ?? master?.clipBehavior ?? defaultMaster.clipBehavior,
-      materialTapTargetSize: materialTapTargetSize ?? master?.materialTapTargetSize
-          ?? defaultMaster.materialTapTargetSize,
+      clipBehavior:
+          clipBehavior ?? master?.clipBehavior ?? defaultMaster.clipBehavior,
+      materialTapTargetSize: materialTapTargetSize ??
+          master?.materialTapTargetSize ??
+          defaultMaster.materialTapTargetSize,
       isExtended: isExtended ?? master?.isExtended ?? defaultMaster.isExtended,
     );
 
-    return resolve ? newFloatingActionButton : FloatingActionButtonCopier
-      (newFloatingActionButton);
+    return resolve
+        ? newFloatingActionButton
+        : FloatingActionButtonCopier(newFloatingActionButton);
   }
 
   @override
   FloatingActionButtonCopier chainCopy(FloatingActionButton master) {
-    return this._copy(
-        master,
-        resolve: false
-    ) as FloatingActionButtonCopier;
+    return this._copy(master, resolve: false) as FloatingActionButtonCopier;
   }
 
   @override
   FloatingActionButton copy(FloatingActionButton master) {
-    return this._copy(
-        master,
-        resolve: true
-    ) as FloatingActionButton;
+    return this._copy(master, resolve: true) as FloatingActionButton;
   }
 
   @override

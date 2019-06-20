@@ -10,9 +10,11 @@ Builder localCopierBuilder(BuilderOptions options) =>
     SharedPartBuilder([LocalCopierGenerator()], 'copier');
 
 Builder foreignCopyableLibraryBuilder(BuilderOptions options) =>
-    LibraryBuilder(ForeignCopyableLibraryGenerator(), generatedExtension: ''
-        '.copyables.dart');
+    LibraryBuilder(ForeignCopyableLibraryGenerator(),
+        generatedExtension: ''
+            '.copyables.dart');
 
 Builder foreignCopierLibraryBuilder(BuilderOptions options) =>
-    LibraryBuilder(ForeignCopierLibraryGenerator(), generatedExtension: ''
-        '.copiers.dart');
+    LibraryBuilder(ForeignCopierLibraryGenerator(),
+        generatedExtension: ''
+            '.copiers.dart');

@@ -7,10 +7,12 @@ class _CopyMeta {
   final String newClassName;
   final Map<String, String> fields;
 
-  const _CopyMeta({this.copyType, this.import, this.baseClass, this
-      .newClassName,
-    this
-        .fields});
+  const _CopyMeta(
+      {this.copyType,
+      this.import,
+      this.baseClass,
+      this.newClassName,
+      this.fields});
 }
 
 class CopyableMeta extends _CopyMeta {
@@ -20,12 +22,11 @@ class CopyableMeta extends _CopyMeta {
     String newClassName,
     Map<String, String> fields,
   }) : super(
-      copyType: CopyType.copyable,
-      import: import,
-      baseClass: baseClass,
-      newClassName: newClassName,
-      fields: fields
-  );
+            copyType: CopyType.copyable,
+            import: import,
+            baseClass: baseClass,
+            newClassName: newClassName,
+            fields: fields);
 }
 
 class CopierMeta extends _CopyMeta {
@@ -38,16 +39,16 @@ class CopierMeta extends _CopyMeta {
     Map<String, String> fields,
     this.defaultObjectCode,
   }) : super(
-    copyType: CopyType.copier,
-    import: import,
-    baseClass: baseClass,
-    newClassName: newClassName,
-    fields: fields,
-  );
+          copyType: CopyType.copier,
+          import: import,
+          baseClass: baseClass,
+          newClassName: newClassName,
+          fields: fields,
+        );
 }
 
 class CopyMetaGenerator {
   final List<CopierMeta> copiers;
-  final List<CopyableMeta>copyables;
+  final List<CopyableMeta> copyables;
   const CopyMetaGenerator({this.copiers, this.copyables});
 }

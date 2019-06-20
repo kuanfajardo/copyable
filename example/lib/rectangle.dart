@@ -20,9 +20,5 @@ class Rectangle with CopyableRectangle implements Copyable<Rectangle> {
   final int width;
   Rectangle parent;
 
-  Rectangle({
-    this.length,
-    this.width,
-    this.parent
-  });
+  Rectangle({this.length, this.width, this.parent});
 }
