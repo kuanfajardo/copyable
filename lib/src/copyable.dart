@@ -5,13 +5,13 @@ abstract class Copyable<T> {
   /// Copy the current object.
   @required T copy();
 
+  /// Copy the current object, overriding with the given properties.
+  @required T copyWith(/* Add named properties here; typically
+  these are object fields.*/);
+
   /// Copy the current object, overriding with non-null properties of
   /// `master` when present.
-  @required T copyWith(T master);
-
-  /// Copy the current object, overriding with the given properties.
-  @required T copyWithProperties(/* Add named properties here; typically
-  these are object fields.*/);
+  @required T copyWithMaster(T master);
 }
 
 /// An interface for giving copy capabilities to classes whose implementation

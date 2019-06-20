@@ -16,10 +16,7 @@ class Point implements Copyable<Point> {
   Point copy() => _copy(this);
 
   @override
-  Point copyWith(Point master) => _copy(master);
-
-  @override
-  Point copyWithProperties({
+  Point copyWith({
     int x,
     int y,
     Point parent
@@ -28,6 +25,9 @@ class Point implements Copyable<Point> {
       y: y,
       parent: parent
   );
+  
+  @override
+  Point copyWithMaster(Point master) => _copy(master);
 
   static Point _copy(Point master, {
     int x,

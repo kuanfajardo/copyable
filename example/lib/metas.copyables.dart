@@ -29,17 +29,17 @@ class CopyableBottomNavigationBar extends BottomNavigationBar
   }
 
   @override
-  CopyableBottomNavigationBar copyWith(BottomNavigationBar master) {
-    return this._copy(master);
-  }
-
-  @override
-  CopyableBottomNavigationBar copyWithProperties(
+  CopyableBottomNavigationBar copyWith(
       {Color backgroundColor,
       double elevation,
       List<BottomNavigationBarItem> items}) {
     return this._copy(this.master,
         backgroundColor: backgroundColor, elevation: elevation, items: items);
+  }
+
+  @override
+  CopyableBottomNavigationBar copyWithMaster(BottomNavigationBar master) {
+    return this._copy(master);
   }
 
   CopyableBottomNavigationBar _copy(BottomNavigationBar master,

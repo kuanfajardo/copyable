@@ -5,7 +5,6 @@ import 'package:dart_style/dart_style.dart';
 
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:code_builder/src/emitter.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'package:copyable/src/generator/annotations.dart';
@@ -370,8 +369,8 @@ Class generateCopyableClass({
     ..annotations.add(refer('override'))
   );
 
-  final Method copyWith = Method((b) => b
-    ..name = 'copyWith'
+  final Method copyWithMaster = Method((b) => b
+    ..name = 'copyWithMaster'
     ..requiredParameters.add(Parameter((b) => b
       ..name = 'master'
       ..type = refer(baseClassName)
@@ -383,8 +382,8 @@ Class generateCopyableClass({
     ..annotations.add(refer('override'))
   );
 
-  final Method copyWithProperties = Method((b) => b
-    ..name = 'copyWithProperties'
+  final Method copyWith = Method((b) => b
+    ..name = 'copyWith'
     ..optionalParameters.addAll(fields)
     ..returns = refer(newClassName)
     ..body = Code('''
@@ -451,7 +450,7 @@ Class generateCopyableClass({
     ..methods.addAll([
       copy,
       copyWith,
-      copyWithProperties,
+      copyWithMaster,
       _copy,
     ])
     ..extend = refer(baseClassName)
@@ -480,8 +479,8 @@ Class generateCopyableMixin({
       ''')
   );
 
-  final Method copyWith = Method((b) => b
-    ..name = 'copyWith'
+  final Method copyWithMaster = Method((b) => b
+    ..name = 'copyWithMaster'
     ..requiredParameters.add(Parameter((b) => b
       ..name = 'master'
       ..type = refer(baseClassName)
@@ -492,8 +491,8 @@ Class generateCopyableMixin({
       ''')
   );
 
-  final Method copyWithProperties = Method((b) => b
-    ..name = 'copyWithProperties'
+  final Method copyWith = Method((b) => b
+    ..name = 'copyWith'
     ..optionalParameters.addAll(fields)
     ..returns = refer(baseClassName)
     ..body = Code('''
@@ -530,7 +529,7 @@ Class generateCopyableMixin({
     ..methods.addAll([
       copy,
       copyWith,
-      copyWithProperties,
+      copyWithMaster,
       _copy
     ])
   );

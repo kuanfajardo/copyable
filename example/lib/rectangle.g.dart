@@ -11,12 +11,12 @@ class CopyableRectangle {
     return _copy(this);
   }
 
-  Rectangle copyWith(Rectangle master) {
-    return _copy(master);
+  Rectangle copyWith({int length, int width, Rectangle parent}) {
+    return _copy(this, length: length, width: width, parent: parent);
   }
 
-  Rectangle copyWithProperties({int length, int width, Rectangle parent}) {
-    return _copy(this, length: length, width: width, parent: parent);
+  Rectangle copyWithMaster(Rectangle master) {
+    return _copy(master);
   }
 
   static Rectangle _copy(Rectangle master,
