@@ -20,9 +20,8 @@ class AppBarCopier implements Copier<AppBar> {
 
   @override
   AppBar get defaultMaster => AppBar();
-
-  @override
-  dynamic internalCopy(AppBar master, {
+  
+  dynamic _copy(AppBar master, {
     bool resolve: false,
     Widget leading,
     bool automaticallyImplyLeading,
@@ -77,7 +76,7 @@ class AppBarCopier implements Copier<AppBar> {
 
   @override
   AppBarCopier copy(AppBar master) {
-    return this.internalCopy(
+    return this._copy(
       master,
       resolve: false,
     ) as AppBarCopier;
@@ -85,7 +84,7 @@ class AppBarCopier implements Copier<AppBar> {
 
   @override
   AppBar copyAndResolve(AppBar master) {
-    return this.internalCopy(
+    return this._copy(
       master,
       resolve: true,
     ) as AppBar;
@@ -112,7 +111,7 @@ class AppBarCopier implements Copier<AppBar> {
     double toolbarOpacity,
     double bottomOpacity,
   }) {
-    return this.internalCopy(
+    return this._copy(
       this.master,
       resolve: false,
       leading: leading,
@@ -157,7 +156,7 @@ class AppBarCopier implements Copier<AppBar> {
     double toolbarOpacity,
     double bottomOpacity,
   }) {
-    return this.internalCopy(
+    return this._copy(
       this.master,
       resolve: true,
       leading: leading,
@@ -202,8 +201,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
       ('Image')),
   ]);
 
-  @override
-  dynamic internalCopy(BottomNavigationBar master, {
+  dynamic _copy(BottomNavigationBar master, {
     bool resolve: false,
     List<BottomNavigationBarItem> items,
     ValueChanged<int> onTap,
@@ -249,7 +247,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
 
   @override
   BottomNavigationBarCopier copy(BottomNavigationBar master) {
-    return this.internalCopy(
+    return this._copy(
       master,
       resolve: false,
     ) as BottomNavigationBarCopier;
@@ -257,7 +255,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
 
   @override
   BottomNavigationBar copyAndResolve(BottomNavigationBar master) {
-    return this.internalCopy(
+    return this._copy(
       master,
       resolve: true,
     ) as BottomNavigationBar;
@@ -280,7 +278,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
     bool showSelectedLabels,
     bool showUnselectedLabels,
   }) {
-    return this.internalCopy(
+    return this._copy(
       this.master,
       resolve: false,
       items: items,
@@ -317,7 +315,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
     bool showSelectedLabels,
     bool showUnselectedLabels,
   }) {
-    return this.internalCopy(
+    return this._copy(
       this.master,
       resolve: true,
       items: items,
@@ -353,8 +351,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   @override
   FloatingActionButton get defaultMaster => FloatingActionButton(onPressed: () => {});
 
-  @override
-  dynamic internalCopy(FloatingActionButton master, {
+  dynamic _copy(FloatingActionButton master, {
     bool resolve = false,
     Widget child,
     String tooltip,
@@ -397,7 +394,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
 
   @override
   FloatingActionButtonCopier copy(FloatingActionButton master) {
-    return this.internalCopy(
+    return this._copy(
         master,
         resolve: false
     ) as FloatingActionButtonCopier;
@@ -405,7 +402,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
 
   @override
   FloatingActionButton copyAndResolve(FloatingActionButton master) {
-    return this.internalCopy(
+    return this._copy(
         master,
         resolve: true
     ) as FloatingActionButton;
@@ -428,7 +425,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
     MaterialTapTargetSize materialTapTargetSize,
     bool isExtended,
   }) {
-    return this.internalCopy(
+    return this._copy(
       this.master,
       resolve: false,
       child: child,
@@ -465,7 +462,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
     MaterialTapTargetSize materialTapTargetSize,
     bool isExtended,
   }) {
-    return this.internalCopy(
+    return this._copy(
       this.master,
       resolve: true,
       child: child,
