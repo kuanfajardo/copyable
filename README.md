@@ -337,7 +337,7 @@ part '$FILE_NAME.g.dart';
 4. Add the generated mixin to your original class.
 
 #### `copier` 
-[Example](./examples/circle.dart) 
+[Example](../examples/circle.dart) 
 
 1. Annotate the class you want to generate copy code for with
    `@GenerateCopier(defaultObjectCode: $DEFAULT)`. 
@@ -358,7 +358,7 @@ part '$FILE_NAME.g.dart';
    with the necessary copy-code as a `part of` file.
 
 #### `foreignCopyableLib`
-[Example](./examples/metas.dart)
+[Example](examples/metas.dart)
  
 1. Create a `CopyableMeta` instance representing the class you want to
    generate a copyable version of for.
