@@ -102,7 +102,7 @@ class ForeignCopyableLibraryGenerator extends Generator {
               (MapEntry<DartObject, DartObject> entry) =>
               Parameter((b) => b
                 ..name = entry.key.toStringValue()
-                ..type = refer(entry.value.toTypeValue().name)
+                ..type = refer(entry.value.toStringValue())
                 ..named = true
               )
       ).toList();
@@ -118,7 +118,7 @@ class ForeignCopyableLibraryGenerator extends Generator {
       //
       Directive import = Directive.import(
         // TODO: fail early if params not present
-          copyableSuperMeta.getField('import').toStringValue()
+        copyableSuperMeta.getField('import').toStringValue()
       );
       imports.add(import);
     });
@@ -170,7 +170,7 @@ class ForeignCopierLibraryGenerator extends Generator {
               (MapEntry<DartObject, DartObject> entry) =>
               Parameter((b) => b
                 ..name = entry.key.toStringValue()
-                ..type = refer(entry.value.toTypeValue().name)
+                ..type = refer(entry.value.toStringValue())
                 ..named = true
               )
       ).toList();

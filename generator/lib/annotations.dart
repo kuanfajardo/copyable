@@ -14,7 +14,7 @@ class _CopyMeta {
   final String import;
   final Type baseClass;
   final String newClassName;
-  final Map<String, Type> fields;
+  final Map<String, String> fields;
 
   const _CopyMeta({this.copyType, this.import, this.baseClass, this
       .newClassName,
@@ -27,7 +27,7 @@ class CopyableMeta extends _CopyMeta {
     String import,
     Type baseClass,
     String newClassName,
-    Map<String, Type> fields
+    Map<String, String> fields,
   }) : super(
       copyType: CopyType.copyable,
       import: import,
@@ -44,7 +44,7 @@ class CopierMeta extends _CopyMeta {
     String import,
     Type baseClass,
     String newClassName,
-    Map<String, Type> fields,
+    Map<String, String> fields,
     this.defaultObjectCode,
   }) : super(
       copyType: CopyType.copier,
