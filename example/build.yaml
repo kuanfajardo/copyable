@@ -1,15 +1,15 @@
 targets:
   $default:
     builders:
-      copyable_generator|copyable:
+      copyable|copyable:
         generate_for:
           - lib/rectangle.dart
-      copyable_generator|copier:
+      copyable|copier:
         generate_for:
           - lib/circle.dart
-      copyable_generator|foreignCopyableLib:
+      copyable|foreignCopyableLib:
         generate_for:
           - lib/metas.dart
-      copyable_generator|foreignCopierLib:
+      copyable|foreignCopierLib:
         generate_for:
           - lib/metas.dart

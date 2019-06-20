@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.6
+  # Generator
+  build: ^1.1.4
+  source_gen: ^0.9.4
+  code_builder: ^3.2.0
 
 dev_dependencies:
   flutter_test:

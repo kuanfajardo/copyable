@@ -1,7 +1,7 @@
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'generator.dart';
+import 'package:copyable/src/generator/generator.dart';
 
 Builder localCopyableBuilder(BuilderOptions options) =>
     SharedPartBuilder([LocalCopyableGenerator()], 'copyable');

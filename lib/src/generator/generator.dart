@@ -8,7 +8,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:code_builder/src/emitter.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'package:copyable_generator/src/annotations.dart';
+import 'package:copyable/src/generator/annotations.dart';
 
 // Local, copyable (mixin)
 class LocalCopyableGenerator extends GeneratorForAnnotation<GenerateCopyable> {
