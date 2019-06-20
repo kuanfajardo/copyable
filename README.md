@@ -18,9 +18,11 @@ your source code), and foreign (i.e. defined in a third-party library).
 - [Code Generation](#code-generation-2)
   - [Setup](#setup-1) 
   - [Usage](#usage-1)
+  - [Running](#running)
 
 ## Examples
-The best way to learn is with [examples](./example).
+The best way to learn is with
+[examples](https://github.com/kuanfajardo/copyable/tree/master/example).
  
 ## Usage
 The `copyable` package defines two interfaces for giving copy-like
@@ -319,12 +321,12 @@ targets:
 
 ### Usage
 
-[Examples](./example)
+[Examples](https://github.com/kuanfajardo/copyable/tree/master/example)
 
 0. Import `package:copyable/generator.dart`.
 
 #### `copyable`
-[Example](./example/rectangle.dart)
+[Example](https://github.com/kuanfajardo/copyable/tree/master/example/rectangle.dart)
  
 1. Annotate the class you want to generate copy code for with
    `@generate_copyable`.
@@ -337,7 +339,7 @@ part '$FILE_NAME.g.dart';
 4. Add the generated mixin to your original class.
 
 #### `copier` 
-[Example](../example/circle.dart) 
+[Example](https://github.com/kuanfajardo/copyable/tree/master/example/circle.dart) 
 
 1. Annotate the class you want to generate copy code for with
    `@GenerateCopier(defaultObjectCode: $DEFAULT)`. 
@@ -358,7 +360,7 @@ part '$FILE_NAME.g.dart';
    with the necessary copy-code as a `part of` file.
 
 #### `foreignCopyableLib`
-[Example](example/metas.dart)
+[Example](https://github.com/kuanfajardo/copyable/tree/master/example/metas.dart)
  
 1. Create a `CopyableMeta` instance representing the class you want to
    generate a copyable version of for.
@@ -367,7 +369,7 @@ part '$FILE_NAME.g.dart';
    **library** generated classes.
    
 #### `foreignCopyableLib`
-[Example](./example/metas.dart)
+[Example](https://github.com/kuanfajardo/copyable/tree/master/example/metas.dart)
 
 1. Create a `CopierMeta` instance representing the class you want to
    generate a copyable version of for.
