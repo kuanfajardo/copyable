@@ -28,7 +28,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBarCopier copy(AppBar master) {
+  AppBarCopier chainCopy(AppBar master) {
     return this._copy(
       master,
       resolve: false,
@@ -36,7 +36,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBar copyAndResolve(AppBar master) {
+  AppBar copy(AppBar master) {
     return this._copy(
       master,
       resolve: true,
@@ -44,7 +44,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBarCopier copyWith({Widget title, double elevation, bool primary}) {
+  AppBarCopier chainCopyWith({Widget title, double elevation, bool primary}) {
     return this._copy(this.master,
         resolve: false,
         title: title,
@@ -53,7 +53,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBar copyWithAndResolve({Widget title, double elevation, bool primary}) {
+  AppBar copyWith({Widget title, double elevation, bool primary}) {
     return this._copy(this.master,
         resolve: true,
         title: title,

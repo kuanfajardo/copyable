@@ -27,7 +27,7 @@ class CircleCopier implements Copier<Circle> {
   }
 
   @override
-  CircleCopier copy(Circle master) {
+  CircleCopier chainCopy(Circle master) {
     return this._copy(
       master,
       resolve: false,
@@ -35,7 +35,7 @@ class CircleCopier implements Copier<Circle> {
   }
 
   @override
-  Circle copyAndResolve(Circle master) {
+  Circle copy(Circle master) {
     return this._copy(
       master,
       resolve: true,
@@ -43,7 +43,7 @@ class CircleCopier implements Copier<Circle> {
   }
 
   @override
-  CircleCopier copyWith({int radius, int centerX, int centerY}) {
+  CircleCopier chainCopyWith({int radius, int centerX, int centerY}) {
     return this._copy(this.master,
         resolve: false,
         radius: radius,
@@ -52,7 +52,7 @@ class CircleCopier implements Copier<Circle> {
   }
 
   @override
-  Circle copyWithAndResolve({int radius, int centerX, int centerY}) {
+  Circle copyWith({int radius, int centerX, int centerY}) {
     return this._copy(this.master,
         resolve: true,
         radius: radius,

@@ -49,7 +49,7 @@ Point origin = Point(0, 0);
 Point origin_copy = origin.copy();
 
 // Copy, overriding some fields
-Point x_intercept = origin.copyWithProperties(x: 5);
+Point x_intercept = origin.copyWith(x: 5);
 ```
 
 **Copier**
@@ -62,10 +62,10 @@ PointCopier pointCopier = PointCopier();
 Point origin = Point(0, 0);
 
 // Copy
-Point origin_copy = pointCopier.copy(origin).resolve();
+Point origin_copy = pointCopier.copy(origin);
 
 // Copy, overriding some fields
-Point x_intercept = pointCopier.copyWith(x: 5).resolve();
+Point x_intercept = pointCopier.copyWith(x: 5);
 ```
 
 Whether to use `Copyable` or `Copier` is a matter of preference: the

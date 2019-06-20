@@ -245,8 +245,8 @@ Class generateCopierClass({
   );
 
   // Define Copier implementation methods.
-  final Method copy = Method((b) => b
-    ..name = 'copy'
+  final Method chainCopy = Method((b) => b
+    ..name = 'chainCopy'
     ..requiredParameters.add(Parameter((b) => b
       ..name = 'master'
       ..type = refer(baseClassName)))
@@ -260,8 +260,8 @@ Class generateCopierClass({
     ..annotations.add(refer('override'))
   );
 
-  final Method copyAndResolve = Method((b) => b
-    ..name = 'copyAndResolve'
+  final Method copy = Method((b) => b
+    ..name = 'copy'
     ..requiredParameters.add(Parameter((b) => b
       ..name = 'master'
       ..type = refer(baseClassName)))
@@ -275,8 +275,8 @@ Class generateCopierClass({
     ..annotations.add(refer('override'))
   );
 
-  final Method copyWith = Method((b) => b
-    ..name = 'copyWith'
+  final Method chainCopyWith = Method((b) => b
+    ..name = 'chainCopyWith'
     ..optionalParameters.addAll(fields)
     ..returns = refer(newClassName)
     ..body = Code('''
@@ -289,8 +289,8 @@ Class generateCopierClass({
     ..annotations.add(refer('override'))
   );
 
-  final Method copyWithAndResolve = Method((b) => b
-    ..name = 'copyWithAndResolve'
+  final Method copyWith = Method((b) => b
+    ..name = 'copyWith'
     ..optionalParameters.addAll(fields)
     ..returns = refer(baseClassName)
     ..body = Code('''
@@ -339,10 +339,10 @@ Class generateCopierClass({
     ..methods.addAll([
       defaultMaster,
       _copy,
+      chainCopy,
       copy,
-      copyAndResolve,
+      chainCopyWith,
       copyWith,
-      copyWithAndResolve,
       resolve,
     ]));
 

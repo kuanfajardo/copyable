@@ -75,7 +75,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBarCopier copy(AppBar master) {
+  AppBarCopier chainCopy(AppBar master) {
     return this._copy(
       master,
       resolve: false,
@@ -83,7 +83,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBar copyAndResolve(AppBar master) {
+  AppBar copy(AppBar master) {
     return this._copy(
       master,
       resolve: true,
@@ -91,7 +91,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBarCopier copyWith({
+  AppBarCopier chainCopyWith({
     Widget leading,
     bool automaticallyImplyLeading,
     Widget title,
@@ -136,7 +136,7 @@ class AppBarCopier implements Copier<AppBar> {
   }
 
   @override
-  AppBar copyWithAndResolve({
+  AppBar copyWith({
     Widget leading,
     bool automaticallyImplyLeading,
     Widget title,
@@ -246,7 +246,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
   }
 
   @override
-  BottomNavigationBarCopier copy(BottomNavigationBar master) {
+  BottomNavigationBarCopier chainCopy(BottomNavigationBar master) {
     return this._copy(
       master,
       resolve: false,
@@ -254,7 +254,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
   }
 
   @override
-  BottomNavigationBar copyAndResolve(BottomNavigationBar master) {
+  BottomNavigationBar copy(BottomNavigationBar master) {
     return this._copy(
       master,
       resolve: true,
@@ -262,7 +262,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
   }
 
   @override
-  BottomNavigationBarCopier copyWith({
+  BottomNavigationBarCopier chainCopyWith({
     List<BottomNavigationBarItem> items,
     ValueChanged<int> onTap,
     int currentIndex,
@@ -299,7 +299,7 @@ class BottomNavigationBarCopier implements Copier<BottomNavigationBar> {
   }
 
   @override
-  BottomNavigationBar copyWithAndResolve({
+  BottomNavigationBar copyWith({
     List<BottomNavigationBarItem> items,
     ValueChanged<int> onTap,
     int currentIndex,
@@ -393,7 +393,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   }
 
   @override
-  FloatingActionButtonCopier copy(FloatingActionButton master) {
+  FloatingActionButtonCopier chainCopy(FloatingActionButton master) {
     return this._copy(
         master,
         resolve: false
@@ -401,7 +401,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   }
 
   @override
-  FloatingActionButton copyAndResolve(FloatingActionButton master) {
+  FloatingActionButton copy(FloatingActionButton master) {
     return this._copy(
         master,
         resolve: true
@@ -409,7 +409,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   }
 
   @override
-  FloatingActionButtonCopier copyWith({
+  FloatingActionButtonCopier chainCopyWith({
     Widget child,
     String tooltip,
     Color foregroundColor,
@@ -446,7 +446,7 @@ class FloatingActionButtonCopier implements Copier<FloatingActionButton> {
   }
 
   @override
-  FloatingActionButton copyWithAndResolve({
+  FloatingActionButton copyWith({
     Widget child,
     String tooltip,
     Color foregroundColor,
