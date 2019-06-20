@@ -1,5 +1,5 @@
-## [0.0.1] - June 02, 2019
+## [0.0.1+2] - June 20, 2019
+Update dependencies and documentation.
 
-Initial Release: Support for creating new classes that implement the Copier interface in order to
-copy objects of classes whose implementation is non-editable (i.e. Flutter widgets). Comes with
-built-in copiers for AppBar, BottomNavigationBar, and FloatingActionButton.
+## [0.0.1] - June 20, 2019
+Initial Release
